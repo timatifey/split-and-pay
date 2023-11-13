@@ -1,0 +1,33 @@
+[versions]
+
+agp = "8.1.1"
+kotlin = "1.8.10"
+compose-bom = "2023.03.00"
+androidx-core = "1.9.0"
+androidx-lifecycle = "2.6.2"
+androidx-activity-compose = "1.8.0"
+
+[libraries]
+
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+
+##androidx
+
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core"}
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
+
+##Compose
+
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui" }
+androidx-compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+
+[plugins]
+
+application = { id = "com.android.application", version.ref = "agp" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
