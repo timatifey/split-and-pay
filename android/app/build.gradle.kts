@@ -52,7 +52,7 @@ android {
 dependencies {
     implementation(project(":ui-kit"))
 
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.compose.ui)

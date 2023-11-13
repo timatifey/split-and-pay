@@ -6,6 +6,7 @@ compose-bom = "2023.03.00"
 androidx-core = "1.9.0"
 androidx-lifecycle = "2.6.2"
 androidx-activity-compose = "1.8.0"
+androidx-fragment = "1.6.2"
 
 [libraries]
 
@@ -14,8 +15,10 @@ kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", versio
 ##androidx
 
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core"}
-androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose",  version.ref = "androidx-lifecycle" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 
 ##Compose
 
