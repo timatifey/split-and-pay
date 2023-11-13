@@ -1,4 +1,4 @@
-package com.example.splitandpay.ui.theme
+package com.example.splitandpay.uikit.theme
 
 import android.app.Activity
 import android.os.Build

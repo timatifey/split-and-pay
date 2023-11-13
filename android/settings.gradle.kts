@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Split and pay"
 include(":app")
+include(":ui-kit")
