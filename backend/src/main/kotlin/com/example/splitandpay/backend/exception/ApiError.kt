@@ -10,4 +10,6 @@ sealed class ApiError(val code: HttpStatus, override val message: String) : Thro
     data class InvalidRoomId(val roomId: String) : ApiError(HttpStatus.BAD_REQUEST, "Room id $roomId is invalid.")
 
     data class RoomNotFound(val roomId: String) : ApiError(HttpStatus.NOT_FOUND, "Room with id $roomId was not found.")
+
+    object ServiceUnavailable : ApiError(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable. Please retry later.")
 }
