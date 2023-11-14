@@ -31,7 +31,10 @@ dependencies {
 
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
+
+    implementation(libs.koin.android)
 }

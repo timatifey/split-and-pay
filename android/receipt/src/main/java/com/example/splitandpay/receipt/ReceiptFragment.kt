@@ -9,13 +9,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.splitandpay.uikit.theme.MyApplicationTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReceiptFragment : Fragment() {
 
-    val viewModel: ReceiptViewModel
-        get() {
-            TODO()
-        }
+    private val viewModel: ReceiptViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

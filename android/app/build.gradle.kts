@@ -51,6 +51,7 @@ android {
 
 dependencies {
     implementation(project(":ui-kit"))
+    implementation(project(":receipt"))
 
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.activity.compose)
@@ -60,4 +61,6 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    implementation(libs.koin.android)
 }
