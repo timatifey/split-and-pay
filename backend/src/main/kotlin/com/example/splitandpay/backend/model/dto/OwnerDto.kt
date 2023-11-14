@@ -1,11 +1,14 @@
 package com.example.splitandpay.backend.model.dto
 
 import com.example.splitandpay.backend.serialization.ObjectIdSerializer
+import com.example.splitandpay.backend.utils.getShortName
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
 @Serializable
-data class UserDto(
+data class OwnerDto(
     @Serializable(with = ObjectIdSerializer::class)
-    val id: ObjectId
+    val id: ObjectId,
+    val username: String,
+    val shortName: String = username.getShortName()
 )

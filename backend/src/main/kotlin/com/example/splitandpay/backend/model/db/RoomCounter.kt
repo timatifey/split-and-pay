@@ -4,12 +4,13 @@ import com.example.splitandpay.backend.serialization.ObjectIdSerializer
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 
 @Serializable
-data class User(
+@Document
+data class RoomCounter(
     @Id
     @Serializable(with = ObjectIdSerializer::class)
     val id: ObjectId = ObjectId.get(),
-    var name: String,
-    val rooms: MutableList<Long> = mutableListOf()
+    val counter: Long
 )

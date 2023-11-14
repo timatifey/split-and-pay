@@ -3,8 +3,11 @@ package com.example.splitandpay.backend.controller
 import com.example.splitandpay.backend.exception.ApiError
 import com.example.splitandpay.backend.model.db.Room
 import com.example.splitandpay.backend.model.dto.CreateRoomRequest
+import com.example.splitandpay.backend.model.dto.CreateRoomResponse
+import com.example.splitandpay.backend.model.dto.RoomDto
 import com.example.splitandpay.backend.repository.RoomRepository
-import com.example.splitandpay.backend.utils.toUUID
+import com.example.splitandpay.backend.service.RoomService
+import com.example.splitandpay.backend.utils.toObjectId
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,7 +19,10 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("/api/rooms")
-class RoomController(private val roomRepository: RoomRepository) {
+class RoomController(
+    private val roomRepository: RoomRepository,
+    private val roomService: RoomService
+) {
     @GetMapping("/{roomId}")
     fun getRoom(@PathVariable roomId: String): Room {
         try {
@@ -30,10 +36,20 @@ class RoomController(private val roomRepository: RoomRepository) {
     fun createRoom(
         @RequestHeader userId: String,
         @RequestBody createRoomRequest: CreateRoomRequest
-    ): Room {
+    ): CreateRoomResponse {
         try {
-            val newRoom = Room(participants = mutableListOf(userId.toUUID()))
-            return roomRepository.save(newRoom)
+            return roomService.createRoom(userId.toObjectId(), createRoomRequest)
+        } catch (e: IllegalArgumentException) {
+            throw ApiError.InvalidUserId(userId)
+        }
+    }
+
+    @GetMapping("/")
+    fun getRooms(
+        @RequestHeader userId: String,
+    ): List<RoomDto> {
+        try {
+            return roomService.getRooms(userId.toObjectId())
         } catch (e: IllegalArgumentException) {
             throw ApiError.InvalidUserId(userId)
         }
