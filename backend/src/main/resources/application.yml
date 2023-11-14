@@ -1,0 +1,15 @@
+server:
+  port: ${port:8010}
+  shutdown: graceful
+
+spring:
+  application:
+    name: split-and-pay-backend-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/split-and-pay
+      auto-index-creation: true
+
+logging:
+  file:
+    name: ${log.dir:/tmp}/split-and-pay-backend-service.main.log
