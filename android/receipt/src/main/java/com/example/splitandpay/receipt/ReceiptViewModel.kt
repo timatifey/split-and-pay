@@ -4,9 +4,19 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class ReceiptViewModel : ViewModel() {
+internal class ReceiptViewModel : ViewModel() {
 
-    private val _state = MutableStateFlow("Temporary")
-    val state: StateFlow<Any>
+    private val _state = MutableStateFlow(ReceiptState.Loading)
+    val state: StateFlow<ReceiptState>
         get() = _state
+
+    fun onReceiptEvent(receiptEvent: ReceiptEvent) {
+        when (receiptEvent) {
+            ReceiptEvent.onRetryClick -> onRetryClick()
+        }
+    }
+
+    private fun onRetryClick() {
+        // TODO
+    }
 }
