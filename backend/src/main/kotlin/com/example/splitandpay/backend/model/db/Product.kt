@@ -1,4 +1,4 @@
-package com.example.splitandpay.backend.model
+package com.example.splitandpay.backend.model.db
 
 import kotlinx.serialization.Serializable
 
