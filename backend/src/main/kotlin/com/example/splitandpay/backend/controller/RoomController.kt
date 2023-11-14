@@ -1,7 +1,7 @@
 package com.example.splitandpay.backend.controller
 
 import com.example.splitandpay.backend.exception.ApiError
-import com.example.splitandpay.backend.model.Room
+import com.example.splitandpay.backend.model.db.Room
 import com.example.splitandpay.backend.model.dto.CreateRoomRequest
 import com.example.splitandpay.backend.repository.RoomRepository
 import com.example.splitandpay.backend.utils.toUUID
