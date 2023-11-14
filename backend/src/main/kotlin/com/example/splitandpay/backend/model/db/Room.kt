@@ -1,15 +1,19 @@
 package com.example.splitandpay.backend.model.db
 
-import com.example.splitandpay.backend.serialization.UUIDSerializer
+import com.example.splitandpay.backend.model.dto.OwnerDto
+import com.example.splitandpay.backend.serialization.LocalDateTimeSerializer
+import com.example.splitandpay.backend.serialization.ObjectIdSerializer
 import kotlinx.serialization.Serializable
-import org.springframework.data.annotation.Id
-import java.util.UUID
+import org.bson.types.ObjectId
+import java.time.LocalDateTime
 
 @Serializable
 data class Room(
-    @Id
-    @Serializable(with = UUIDSerializer::class)
-    val id: UUID = UUID.randomUUID(),
-    val participants: MutableList<@Serializable(with = UUIDSerializer::class) UUID>,
-    val products: MutableMap<Product, MutableList<@Serializable(with = UUIDSerializer::class) UUID>> = mutableMapOf()
+    val id: Long,
+    val name: String,
+    val owner: OwnerDto,
+    val participants: MutableList<@Serializable(with = ObjectIdSerializer::class) ObjectId> = mutableListOf(owner.id),
+    val products: MutableMap<Product, MutableList<@Serializable(with = ObjectIdSerializer::class) ObjectId>> = mutableMapOf(),
+    @Serializable(with = LocalDateTimeSerializer::class)
+    val createdAt: LocalDateTime
 )
