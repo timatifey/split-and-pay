@@ -122,4 +122,13 @@ class RoomService(
         product.users.add(addUserToProduct.userId)
         return roomRepository.save(room).toDto()
     }
+
+    fun connectToRoom(userId: ObjectId, roomId: Long): RoomDto {
+        val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
+        if (userId in room.participants) {
+            return room.toDto()
+        }
+        room.participants.add(userId)
+        return roomRepository.save(room).toDto()
+    }
 }

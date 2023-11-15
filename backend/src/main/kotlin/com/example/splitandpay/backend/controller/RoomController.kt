@@ -28,6 +28,14 @@ class RoomController(
         return roomService.getRoom(roomId)
     }
 
+    @GetMapping("/{roomId}/connect")
+    fun connectToRoom(
+        @RequestHeader userId: String,
+        @PathVariable roomId: Long
+    ): RoomDto {
+        return roomService.connectToRoom(userId.toObjectId(), roomId)
+    }
+
     @PostMapping("/{roomId}/addProduct")
     fun addProduct(
         @RequestHeader userId: String,
