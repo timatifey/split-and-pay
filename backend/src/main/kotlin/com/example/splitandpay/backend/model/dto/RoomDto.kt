@@ -11,5 +11,5 @@ data class RoomDto(
     @Serializable(with = LocalDateTimeSerializer::class)
     val createdAt: LocalDateTime,
     val users: List<OwnerDto>? = null,
-    val check: List<ProductDto>? = null,
+    val receipt: List<ProductDto>? = null,
 )
