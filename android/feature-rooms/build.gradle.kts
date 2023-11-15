@@ -42,6 +42,7 @@ android {
 dependencies {
     implementation(project(":ui-kit"))
     implementation(project(":network"))
+    implementation(project(":feature-user"))
 
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.lifecycle.runtime.compose)

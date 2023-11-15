@@ -1,3 +1,5 @@
 <resources>
     <string name="error_button_text">Обновить</string>
+    <string name="empty_list_text">Создайте или присоединитесь к комнате</string>
+    <string name="user_header">Привет, %s</string>
 </resources>
