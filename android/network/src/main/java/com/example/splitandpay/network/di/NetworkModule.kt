@@ -1,9 +1,9 @@
 package com.example.splitandpay.network.di
 
-import com.example.splitandpay.network.SplitAndPayApiService
 import com.example.splitandpay.network.BuildConfig
-
+import com.example.splitandpay.network.SplitAndPayApiService
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,7 +20,11 @@ private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
 }
 
 private fun provideOkHttpClient(): OkHttpClient {
-    return OkHttpClient().newBuilder().build()
+    val logging = HttpLoggingInterceptor()
+    logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+    return OkHttpClient().newBuilder()
+        .addInterceptor(logging)
+        .build()
 }
 
 private fun provideSplitAndPayApiService(retrofit: Retrofit): SplitAndPayApiService {
