@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.splitandpay.room.models.ReceiptItem
 import com.example.splitandpay.uikit.theme.MyApplicationTheme
-import com.example.splitandpay.uikit.theme.SpaceGray
+import com.example.splitandpay.uikit.theme.PurpleGrey40
 
 @Composable
 internal fun ReceiptItemView(
@@ -26,7 +26,7 @@ internal fun ReceiptItemView(
     Box(
         modifier = Modifier
             .clickable(onClick = onClick)
-            .background(SpaceGray)
+            .background(PurpleGrey40)
             .fillMaxWidth()
             .height(40.dp)
             .padding(horizontal = 16.dp),
