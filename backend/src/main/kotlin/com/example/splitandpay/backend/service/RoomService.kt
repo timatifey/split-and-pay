@@ -13,6 +13,7 @@ import com.example.splitandpay.backend.model.dto.ProductDto
 import com.example.splitandpay.backend.model.dto.RoomDto
 import com.example.splitandpay.backend.repository.RoomRepository
 import com.example.splitandpay.backend.repository.UserRepository
+import com.example.splitandpay.backend.service.check.ProverkaCheckaService
 import jakarta.annotation.PostConstruct
 import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.MongoOperations
@@ -27,7 +28,8 @@ import java.time.LocalDateTime
 class RoomService(
     private val roomRepository: RoomRepository,
     private val mongoOperations: MongoOperations,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val proverkaCheckaService: ProverkaCheckaService
 ) {
     private lateinit var counterId: ObjectId
 
@@ -58,7 +60,7 @@ class RoomService(
 
     private fun createNewCounter(): RoomCounter {
         return mongoOperations.save(
-            RoomCounter(counter = roomRepository.findAll().lastOrNull()?.id ?: 0),
+            RoomCounter(counter = roomRepository.findAll().lastOrNull()?.id ?: 1),
             "roomCounter"
         ).apply { counterId = id }
     }
@@ -80,6 +82,18 @@ class RoomService(
     fun getRoom(roomId: Long): RoomDto {
         val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
         return room.toDto()
+    }
+
+    fun addProductsFromCheck(userId: ObjectId, roomId: Long, checkData: String): RoomDto {
+        val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
+        if (userId != room.owner.id && userId !in room.participants) {
+            throw ApiError.AccessDenied
+        }
+        val checkDto = proverkaCheckaService.sendCheck(checkData)
+        checkDto.data.json.items.forEach {
+            room.products.add(Product(it.name, (it.sum).toDouble() / 100))
+        }
+        return roomRepository.save(room).toDto()
     }
 
     fun addProduct(userId: ObjectId, roomId: Long, addProductRequest: AddProductRequest): RoomDto {

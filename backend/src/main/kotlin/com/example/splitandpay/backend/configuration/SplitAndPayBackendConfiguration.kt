@@ -19,6 +19,7 @@ class SplitAndPayBackendConfiguration {
     fun messageConverter(): KotlinSerializationJsonHttpMessageConverter {
         return KotlinSerializationJsonHttpMessageConverter(Json {
             explicitNulls = false
+            ignoreUnknownKeys = true
         })
     }
 }

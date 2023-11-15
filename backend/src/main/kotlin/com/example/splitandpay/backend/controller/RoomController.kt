@@ -45,6 +45,15 @@ class RoomController(
         return roomService.addProduct(userId.toObjectId(), roomId, addProductRequest)
     }
 
+    @PostMapping("/{roomId}/addProductFromCheck")
+    fun addProductFromCheck(
+        @RequestHeader userId: String,
+        @PathVariable roomId: Long,
+        @RequestBody checkData: String
+    ): RoomDto {
+        return roomService.addProductsFromCheck(userId.toObjectId(), roomId, checkData)
+    }
+
     @PostMapping("/{roomId}/addUserToProduct")
     fun addUserToProduct(
         @RequestHeader userId: String,
