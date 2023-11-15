@@ -12,11 +12,13 @@
             android:id="@+id/action_mainFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
         <action
+            android:id="@+id/action_mainFragment_to_roomsListFragment"
+            app:destination="@id/roomsListFragment" />
+        <action
             android:id="@+id/action_mainFragment_to_startUserFragment"
             app:destination="@id/startUserFragment" />
 
-        <deepLink
-            app:uri="android-app://splitandpay/mainFragment" />
+        <deepLink app:uri="android-app://splitandpay/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/roomFragment"
@@ -26,4 +28,9 @@
         android:id="@+id/startUserFragment"
         android:name="com.example.splitandpay.user.start.StartUserFragment"
         android:label="Start User" />
+
+    <fragment
+        android:id="@+id/roomsListFragment"
+        android:name="com.example.splitandpay.rooms.RoomsListFragment"
+        android:label="RoomsListFragment" />
 </navigation>
