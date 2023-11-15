@@ -67,7 +67,7 @@ class RoomController(
     fun createRoom(
         @RequestHeader userId: String,
         @RequestBody createRoomRequest: CreateRoomRequest
-    ): CreateRoomResponse {
+    ): RoomDto {
         try {
             return roomService.createRoom(userId.toObjectId(), createRoomRequest)
         } catch (e: IllegalArgumentException) {

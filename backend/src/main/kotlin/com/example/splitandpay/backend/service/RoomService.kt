@@ -45,7 +45,7 @@ class RoomService(
         }
     }
 
-    fun createRoom(userId: ObjectId, createRoomRequest: CreateRoomRequest): CreateRoomResponse {
+    fun createRoom(userId: ObjectId, createRoomRequest: CreateRoomRequest): RoomDto {
         val counter = mongoOperations.findAndModify(
             Query.query(Criteria.where("_id").`is`(counterId)),
             Update().inc("counter", 1),
@@ -55,7 +55,7 @@ class RoomService(
         val owner = OwnerDto(userId, userRepository.findById(userId).get().name)
         val newRoom =
             Room(counter.counter, createRoomRequest.roomName, owner, createdAt = getCurrentTime())
-        return CreateRoomResponse(roomRepository.save(newRoom).id)
+        return roomRepository.save(newRoom).toDto()
     }
 
     private fun createNewCounter(): RoomCounter {
@@ -73,6 +73,7 @@ class RoomService(
         return roomRepository.findAllByOwnerId(ownerId).map {
             RoomDto(
                 it.id,
+                it.name,
                 it.owner,
                 it.createdAt
             )
@@ -111,6 +112,7 @@ class RoomService(
     private fun Room.toDto(): RoomDto {
         return RoomDto(
             id = id,
+            name = name,
             owner = owner,
             createdAt = createdAt,
             users = userRepository.findAllById(participants).map { OwnerDto(it.id, it.name) },

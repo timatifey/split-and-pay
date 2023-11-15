@@ -7,6 +7,7 @@ import java.time.LocalDateTime
 @Serializable
 data class RoomDto(
     val id: Long,
+    val name: String,
     val owner: OwnerDto,
     @Serializable(with = LocalDateTimeSerializer::class)
     val createdAt: LocalDateTime,
