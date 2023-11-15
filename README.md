@@ -20,22 +20,10 @@ docker build -t splitandpay/backend:latest .
 ```
 3. Create config (for example)
 ```yml
-server:
-  port: ${port:8010}
-  shutdown: graceful
-
 spring:
-  application:
-    name: split-and-pay-backend-service
   data:
     mongodb:
       uri: mongodb://localhost:27017/split-and-pay
-      auto-index-creation: true
-
-logging:
-  file:
-    name: ${log.dir:/tmp}/split-and-pay-backend-service.main.log
-
 ```
 4. Create .env file (for example)
 ```
