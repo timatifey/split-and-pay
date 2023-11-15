@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:7.0.3
+    volumes:
+      - ./mongo:/data/db
+    env_file:
+      - .env
+  backend:
+    image: splitandpay/backend:latest
+    volumes:
+      - ${CONFIG_DIR}:/etc/split-and-pay/backend/
+    ports:
+      - "8010:8010"
+    depends_on:
+      - mongo
