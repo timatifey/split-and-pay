@@ -13,7 +13,8 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Split and pay"
+rootProject.name = "Split-and-pay"
 include(":app")
 include(":ui-kit")
 include(":receipt")
+include(":network")
