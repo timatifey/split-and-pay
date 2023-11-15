@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":ui-kit"))
     implementation(project(":room"))
     implementation(project(":network"))
+    implementation(project(":feature-user"))
 
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.fragment)
