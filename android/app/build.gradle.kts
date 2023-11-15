@@ -51,7 +51,7 @@ android {
 
 dependencies {
     implementation(project(":ui-kit"))
-    implementation(project(":receipt"))
+    implementation(project(":room"))
     implementation(project(":network"))
 
     implementation(libs.androidx.lifecycle.runtime)

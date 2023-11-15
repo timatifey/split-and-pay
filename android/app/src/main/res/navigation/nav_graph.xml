@@ -14,6 +14,6 @@
     </fragment>
     <fragment
         android:id="@+id/receiptFragment"
-        android:name="com.example.splitandpay.receipt.ReceiptFragment"
+        android:name="com.example.splitandpay.room.RoomFragment"
         android:label="ReceiptFragment" />
 </navigation>
