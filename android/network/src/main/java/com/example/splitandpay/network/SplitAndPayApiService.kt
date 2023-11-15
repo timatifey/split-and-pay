@@ -36,38 +36,38 @@ public interface SplitAndPayApiService {
     ): Response<UserId>
 
     // Room
-    @POST("api/rooms")
+    @POST("api/rooms/")
     suspend fun createRoom(
         @Header("userId") userId: String,
         @Body roomName: RoomName,
     ): Response<RoomId>
 
-    @GET("api/rooms")
+    @GET("api/rooms/")
     suspend fun getRooms(
         @Header("userId") userId: String,
     ): Response<List<Room>>
 
-    @GET("api/rooms/{roomId}")
+    @GET("api/rooms/{roomId}/")
     suspend fun getRoomDetails(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
     ): Response<RoomDetails>
 
-    @GET("api/rooms/{roomId}/connect")
+    @GET("api/rooms/{roomId}/connect/")
     suspend fun connectToRoom(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
     ): Response<RoomDetails>
 
     // Receipt
-    @POST("api/rooms/{roomId}/addProduct")
+    @POST("api/rooms/{roomId}/addProduct/")
     suspend fun addProduct(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
         @Body product: Product,
     ): Response<RoomDetails>
 
-    @POST("api/rooms/{roomId}/addUserToProduct")
+    @POST("api/rooms/{roomId}/addUserToProduct/")
     suspend fun addUserToProduct(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
@@ -75,6 +75,6 @@ public interface SplitAndPayApiService {
     ): Response<RoomDetails>
 
     // Misc
-    @GET("api/misc/randomName")
+    @GET("api/misc/randomName/")
     suspend fun getRandomName(): Response<RandomName>
 }
