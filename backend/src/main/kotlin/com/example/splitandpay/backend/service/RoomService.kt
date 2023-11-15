@@ -1,8 +1,11 @@
 package com.example.splitandpay.backend.service
 
 import com.example.splitandpay.backend.exception.ApiError
+import com.example.splitandpay.backend.model.db.Product
 import com.example.splitandpay.backend.model.db.Room
 import com.example.splitandpay.backend.model.db.RoomCounter
+import com.example.splitandpay.backend.model.dto.AddProductRequest
+import com.example.splitandpay.backend.model.dto.AddUserToProduct
 import com.example.splitandpay.backend.model.dto.CreateRoomRequest
 import com.example.splitandpay.backend.model.dto.CreateRoomResponse
 import com.example.splitandpay.backend.model.dto.OwnerDto
@@ -76,17 +79,47 @@ class RoomService(
 
     fun getRoom(roomId: Long): RoomDto {
         val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
+        return room.toDto()
+    }
+
+    fun addProduct(userId: ObjectId, roomId: Long, addProductRequest: AddProductRequest): RoomDto {
+        val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
+        if (userId != room.owner.id && userId !in room.participants) {
+            throw ApiError.AccessDenied
+        }
+        if (room.products.find { it.name == addProductRequest.name } != null) {
+            throw ApiError.ProductAlreadyAdded(addProductRequest.name, addProductRequest.amount)
+        }
+        room.products.add(Product(addProductRequest.name, addProductRequest.amount))
+        return roomRepository.save(room).toDto()
+    }
+
+    private fun Room.toDto(): RoomDto {
         return RoomDto(
-            id = room.id,
-            owner = room.owner,
-            createdAt = room.createdAt,
-            users = userRepository.findAllById(room.participants).map { OwnerDto(it.id, it.name) },
-            check = room.products.map { (product, users) ->
+            id = id,
+            owner = owner,
+            createdAt = createdAt,
+            users = userRepository.findAllById(participants).map { OwnerDto(it.id, it.name) },
+            receipt = products.map { (name, amount, users) ->
                 ProductDto(
-                    name = product.name,
-                    amount = product.amount,
+                    name = name,
+                    amount = amount,
                     users = userRepository.findAllById(users).map { OwnerDto(it.id, it.name) })
             }
         )
+    }
+
+    fun addUserToProduct(userId: ObjectId, roomId: Long, addUserToProduct: AddUserToProduct): RoomDto {
+        val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
+        if (userId != room.owner.id && userId !in room.participants) {
+            throw ApiError.AccessDenied
+        }
+        if (addUserToProduct.userId != room.owner.id && addUserToProduct.userId !in room.participants) {
+            throw ApiError.UserNotFound(addUserToProduct.userId.toHexString())
+        }
+        val product = room.products.find { it.name == addUserToProduct.productName }
+            ?: throw ApiError.ProductNotFound(addUserToProduct.productName)
+        product.users.add(addUserToProduct.userId)
+        return roomRepository.save(room).toDto()
     }
 }

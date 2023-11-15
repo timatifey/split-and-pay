@@ -1,6 +1,8 @@
 package com.example.splitandpay.backend.controller
 
 import com.example.splitandpay.backend.exception.ApiError
+import com.example.splitandpay.backend.model.dto.AddProductRequest
+import com.example.splitandpay.backend.model.dto.AddUserToProduct
 import com.example.splitandpay.backend.model.dto.CreateRoomRequest
 import com.example.splitandpay.backend.model.dto.CreateRoomResponse
 import com.example.splitandpay.backend.model.dto.RoomDto
@@ -24,6 +26,24 @@ class RoomController(
         @PathVariable roomId: Long
     ): RoomDto {
         return roomService.getRoom(roomId)
+    }
+
+    @PostMapping("/{roomId}/addProduct")
+    fun addProduct(
+        @RequestHeader userId: String,
+        @PathVariable roomId: Long,
+        @RequestBody addProductRequest: AddProductRequest
+    ): RoomDto {
+        return roomService.addProduct(userId.toObjectId(), roomId, addProductRequest)
+    }
+
+    @PostMapping("/{roomId}/addUserToProduct")
+    fun addUserToProduct(
+        @RequestHeader userId: String,
+        @PathVariable roomId: Long,
+        @RequestBody addUserToProduct: AddUserToProduct
+    ): RoomDto {
+        return roomService.addUserToProduct(userId.toObjectId(), roomId, addUserToProduct)
     }
 
     @PostMapping("/")

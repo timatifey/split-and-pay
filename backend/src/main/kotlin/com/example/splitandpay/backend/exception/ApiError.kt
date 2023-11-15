@@ -9,5 +9,19 @@ sealed class ApiError(val code: HttpStatus, override val message: String) : Thro
 
     data class RoomNotFound(val roomId: Long) : ApiError(HttpStatus.NOT_FOUND, "Room with id $roomId was not found.")
 
-    object ServiceUnavailable : ApiError(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable. Please retry later.")
+    data object AccessDenied : ApiError(HttpStatus.FORBIDDEN, "Access denied") {
+        private fun readResolve(): Any = AccessDenied
+    }
+
+    data object ServiceUnavailable :
+        ApiError(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable. Please retry later.") {
+        private fun readResolve(): Any = ServiceUnavailable
+    }
+
+    data class ProductAlreadyAdded(val productName: String, val productAmount: Double) : ApiError(
+        HttpStatus.BAD_REQUEST,
+        "Product $productName - $productAmount was already added"
+    )
+
+    data class ProductNotFound(val name: String) : ApiError(HttpStatus.NOT_FOUND, "Product $name was not found.")
 }

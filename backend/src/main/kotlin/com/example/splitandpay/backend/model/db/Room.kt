@@ -15,7 +15,7 @@ data class Room(
     val name: String,
     val owner: OwnerDto,
     val participants: MutableList<@Serializable(with = ObjectIdSerializer::class) ObjectId> = mutableListOf(owner.id),
-    val products: MutableMap<Product, MutableList<@Serializable(with = ObjectIdSerializer::class) ObjectId>> = mutableMapOf(),
+    val products: MutableList<Product> = mutableListOf(),
     @Serializable(with = LocalDateTimeSerializer::class)
     val createdAt: LocalDateTime
 )
