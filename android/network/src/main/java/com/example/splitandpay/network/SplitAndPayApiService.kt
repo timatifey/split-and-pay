@@ -1,18 +1,22 @@
 package com.example.splitandpay.network
 
+import com.example.splitandpay.network.model.Product
+import com.example.splitandpay.network.model.ProductName
 import com.example.splitandpay.network.model.RandomName
 import com.example.splitandpay.network.model.Room
 import com.example.splitandpay.network.model.RoomDetails
 import com.example.splitandpay.network.model.RoomId
+import com.example.splitandpay.network.model.RoomName
 import com.example.splitandpay.network.model.UserId
+import com.example.splitandpay.network.model.Username
 
 import retrofit2.Response
-import retrofit2.http.Field
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 /**
  * @author timatifey
@@ -20,21 +24,22 @@ import retrofit2.http.Query
 public interface SplitAndPayApiService {
 
     // User
-    @POST("api/user")
+    @POST("api/user/")
     suspend fun createUser(
-        @Field("username") username: String,
+        @Body username: Username,
     ): Response<UserId>
 
-    @PUT("api/user")
+    @PUT("api/user/")
     suspend fun updateUser(
-        @Field("username") username: String,
+        @Header("userId") userId: String,
+        @Body username: Username,
     ): Response<UserId>
 
     // Room
     @POST("api/rooms")
     suspend fun createRoom(
         @Header("userId") userId: String,
-        @Field("name") roomName: String,
+        @Body roomName: RoomName,
     ): Response<RoomId>
 
     @GET("api/rooms")
@@ -45,10 +50,31 @@ public interface SplitAndPayApiService {
     @GET("api/rooms/{roomId}")
     suspend fun getRoomDetails(
         @Header("userId") userId: String,
-        @Query("roomId") roomId: Long,
+        @Path("roomId") roomId: Long,
     ): Response<RoomDetails>
 
-    // Utils
+    @GET("api/rooms/{roomId}/connect")
+    suspend fun connectToRoom(
+        @Header("userId") userId: String,
+        @Path("roomId") roomId: Long,
+    ): Response<RoomDetails>
+
+    // Receipt
+    @POST("api/rooms/{roomId}/addProduct")
+    suspend fun addProduct(
+        @Header("userId") userId: String,
+        @Path("roomId") roomId: Long,
+        @Body product: Product,
+    ): Response<RoomDetails>
+
+    @POST("api/rooms/{roomId}/addUserToProduct")
+    suspend fun addUserToProduct(
+        @Header("userId") userId: String,
+        @Path("roomId") roomId: Long,
+        @Body productName: ProductName,
+    ): Response<RoomDetails>
+
+    // Misc
     @GET("api/misc/randomName")
     suspend fun getRandomName(): Response<RandomName>
 }
