@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.splitandpay.receipt"
+    namespace = "com.example.splitandpay.room"
     compileSdk = 34
 
     defaultConfig {

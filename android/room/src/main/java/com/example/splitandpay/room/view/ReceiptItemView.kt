@@ -1,4 +1,4 @@
-package com.example.splitandpay.receipt.view
+package com.example.splitandpay.room.view
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -14,12 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.splitandpay.room.models.ReceiptItem
 import com.example.splitandpay.uikit.theme.MyApplicationTheme
 import com.example.splitandpay.uikit.theme.SpaceGray
 
 @Composable
-internal fun ReceiptItem(
-    text: String,
+internal fun ReceiptItemView(
+    state: ReceiptItem,
     onClick: () -> Unit,
 ) {
     Box(
@@ -33,7 +34,7 @@ internal fun ReceiptItem(
     ) {
         Text(
             textAlign = TextAlign.Start,
-            text = text,
+            text = state.text,
             maxLines = 1,
         )
     }
@@ -45,8 +46,12 @@ internal fun ReceiptItem(
 @Composable
 private fun ReceiptItemPreview() {
     MyApplicationTheme {
-        ReceiptItem(
-            "Пиво",
+        ReceiptItemView(
+            ReceiptItem(
+                text = "Пиво",
+                amount = 1.0,
+                users = emptyList(),
+            ),
             onClick = {},
         )
     }
