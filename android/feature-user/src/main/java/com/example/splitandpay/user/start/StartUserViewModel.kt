@@ -42,6 +42,7 @@ internal class StartUserViewModel constructor(
             }
 
             userDataHolder.userId = createUserResponse.body()!!.id
+            userDataHolder.username = username
             _state.value = StartUserState.Success
         }
     }
