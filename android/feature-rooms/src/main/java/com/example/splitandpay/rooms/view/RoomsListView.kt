@@ -52,7 +52,7 @@ internal fun RoomsListView(
             )
 
             is RoomsListState.Loading -> Loading()
-            is RoomsListState.EmptyList -> EmptyText()
+            is RoomsListState.EmptyList -> EmptyList(onRoomsListEvent = onRoomsListEvent)
         }
     }
 }
@@ -72,15 +72,41 @@ private fun UserHeader(username: String) {
 }
 
 @Composable
-private fun EmptyText() {
+private fun EmptyList(
+    onRoomsListEvent: (RoomsListEvent) -> Unit,
+) {
     Box(
-        modifier = Modifier.padding(bottom = 16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 8.dp),
     ) {
-        Text(
-            textAlign = TextAlign.Center,
-            text = stringResource(id = R.string.empty_list_text),
-            style = MaterialTheme.typography.headlineSmall,
-        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 16.dp),
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                textAlign = TextAlign.Center,
+                text = stringResource(id = R.string.empty_list_text),
+                style = MaterialTheme.typography.headlineSmall,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .height(64.dp)
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 16.dp),
+            shape = RoundedCornerShape(size = 1000.dp),
+            onClick = { onRoomsListEvent(RoomsListEvent.OnAddButtonClick) }
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_plus),
+                contentDescription = null,
+                modifier = Modifier.requiredSize(28.dp),
+            )
+        }
     }
 }
 
@@ -90,8 +116,7 @@ private fun Content(
     onRoomsListEvent: (RoomsListEvent) -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .padding(horizontal = 8.dp),
+        modifier = Modifier.padding(horizontal = 8.dp),
     ) {
         LazyColumn(
             modifier = Modifier
