@@ -5,10 +5,12 @@ import com.example.splitandpay.backend.serialization.LocalDateTimeSerializer
 import com.example.splitandpay.backend.serialization.ObjectIdSerializer
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
+import org.springframework.data.annotation.Id
 import java.time.LocalDateTime
 
 @Serializable
 data class Room(
+    @Id
     val id: Long,
     val name: String,
     val owner: OwnerDto,
