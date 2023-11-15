@@ -87,7 +87,7 @@ internal class RoomViewModel : ViewModel() {
         )
     )
 
-    private val _state = MutableStateFlow(mockState)
+    private val _state: MutableStateFlow<RoomState> = MutableStateFlow(mockState)
     val state: StateFlow<RoomState>
         get() = _state
 
