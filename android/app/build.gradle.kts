@@ -52,6 +52,7 @@ android {
 dependencies {
     implementation(project(":ui-kit"))
     implementation(project(":receipt"))
+    implementation(project(":network"))
 
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.fragment)

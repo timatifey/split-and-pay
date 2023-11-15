@@ -7,6 +7,7 @@ plugins {
 android {
     namespace = "com.example.splitandpay.network"
     compileSdk = 33
+    buildFeatures.buildConfig = true
 
     defaultConfig {
         minSdk = 24
@@ -21,6 +22,19 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+            buildConfigField(
+                type = "String",
+                name = "API_URL",
+                value = "\"https://\"" // TODO
+            )
+        }
+        debug {
+            isMinifyEnabled = false
+            buildConfigField(
+                type = "String",
+                name = "API_URL",
+                value = "\"https://\"" // TODO
             )
         }
     }
