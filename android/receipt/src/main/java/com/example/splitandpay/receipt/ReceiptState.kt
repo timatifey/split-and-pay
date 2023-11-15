@@ -2,7 +2,9 @@ package com.example.splitandpay.receipt
 
 internal sealed interface ReceiptState {
 
-    object Content : ReceiptState
+    data class Content(
+        val items: List<String>,
+    ) : ReceiptState
 
     data class Error(
         val text: String,
