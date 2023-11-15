@@ -1,10 +1,12 @@
 package com.example.splitandpay.backend.service
 
+import com.example.splitandpay.backend.exception.ApiError
 import com.example.splitandpay.backend.model.db.Room
 import com.example.splitandpay.backend.model.db.RoomCounter
 import com.example.splitandpay.backend.model.dto.CreateRoomRequest
 import com.example.splitandpay.backend.model.dto.CreateRoomResponse
 import com.example.splitandpay.backend.model.dto.OwnerDto
+import com.example.splitandpay.backend.model.dto.ProductDto
 import com.example.splitandpay.backend.model.dto.RoomDto
 import com.example.splitandpay.backend.repository.RoomRepository
 import com.example.splitandpay.backend.repository.UserRepository
@@ -70,5 +72,21 @@ class RoomService(
                 it.createdAt
             )
         }
+    }
+
+    fun getRoom(roomId: Long): RoomDto {
+        val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
+        return RoomDto(
+            id = room.id,
+            owner = room.owner,
+            createdAt = room.createdAt,
+            users = userRepository.findAllById(room.participants).map { OwnerDto(it.id, it.name) },
+            check = room.products.map { (product, users) ->
+                ProductDto(
+                    name = product.name,
+                    amount = product.amount,
+                    users = userRepository.findAllById(users).map { OwnerDto(it.id, it.name) })
+            }
+        )
     }
 }

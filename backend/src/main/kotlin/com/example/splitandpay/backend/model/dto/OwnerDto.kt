@@ -10,5 +10,7 @@ data class OwnerDto(
     @Serializable(with = ObjectIdSerializer::class)
     val id: ObjectId,
     val username: String,
-    val shortName: String = username.getShortName()
-)
+    val shortName: String,
+) {
+    constructor(id: ObjectId, username: String) : this(id, username, username.getShortName())
+}

@@ -42,7 +42,7 @@ class RandomNameGeneratorController(
     }
 
     companion object {
-        private val replaceDashAndUnderline = "[_.-]".toRegex()
+        private val replaceDashAndUnderline = "[_.\\]\\[{}-]".toRegex()
         private val words = listOf("humor", "hishnik", "fen", "stalker", "dino", "sleng")
 
         private fun randomBoolean(threshold: Int) = Random.nextInt(0, 100) < threshold

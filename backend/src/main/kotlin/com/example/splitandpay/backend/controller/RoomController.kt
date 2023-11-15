@@ -1,11 +1,9 @@
 package com.example.splitandpay.backend.controller
 
 import com.example.splitandpay.backend.exception.ApiError
-import com.example.splitandpay.backend.model.db.Room
 import com.example.splitandpay.backend.model.dto.CreateRoomRequest
 import com.example.splitandpay.backend.model.dto.CreateRoomResponse
 import com.example.splitandpay.backend.model.dto.RoomDto
-import com.example.splitandpay.backend.repository.RoomRepository
 import com.example.splitandpay.backend.service.RoomService
 import com.example.splitandpay.backend.utils.toObjectId
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,21 +13,17 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
 
 @RestController
 @RequestMapping("/api/rooms")
 class RoomController(
-    private val roomRepository: RoomRepository,
     private val roomService: RoomService
 ) {
     @GetMapping("/{roomId}")
-    fun getRoom(@PathVariable roomId: String): Room {
-        try {
-            return roomRepository.findById(UUID.fromString(roomId)).orElseThrow { ApiError.RoomNotFound(roomId) }
-        } catch (e: IllegalArgumentException) {
-            throw ApiError.InvalidRoomId(roomId)
-        }
+    fun getRoom(
+        @PathVariable roomId: Long
+    ): RoomDto {
+        return roomService.getRoom(roomId)
     }
 
     @PostMapping("/")

@@ -9,5 +9,7 @@ data class RoomDto(
     val id: Long,
     val owner: OwnerDto,
     @Serializable(with = LocalDateTimeSerializer::class)
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime,
+    val users: List<OwnerDto>? = null,
+    val check: List<ProductDto>? = null,
 )
