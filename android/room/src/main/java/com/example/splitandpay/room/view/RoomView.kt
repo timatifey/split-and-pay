@@ -4,12 +4,10 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,10 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.splitandpay.room.R
 import com.example.splitandpay.room.RoomEvent
 import com.example.splitandpay.room.RoomState
 import com.example.splitandpay.room.models.ReceiptItem
+import com.example.splitandpay.uikit.R
 import com.example.splitandpay.uikit.error.ErrorView
 import com.example.splitandpay.uikit.loading.Loading
 import com.example.splitandpay.uikit.theme.MyApplicationTheme
@@ -39,10 +37,12 @@ internal fun RoomView(
             state = state,
             onRoomEvent = onRoomEvent,
         )
+
         is RoomState.Error -> ErrorView(
             text = state.text,
             onClick = { onRoomEvent(RoomEvent.OnRetryClick) },
         )
+
         RoomState.Loading -> Loading()
     }
 }

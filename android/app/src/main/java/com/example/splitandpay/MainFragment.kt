@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
         val userId = userDataHolder.userId
         val isUserIdExist = userId != null
         if (isUserIdExist) {
-            navigateToRoomScreen()
+            navigateToRoomsListScreen()
         } else {
             navigateToStartUserScreen()
         }
@@ -48,6 +48,11 @@ class MainFragment : Fragment() {
     private fun navigateToRoomScreen() {
         navController.navigate(R.id.action_mainFragment_to_roomFragment)
     }
+
+    private fun navigateToRoomsListScreen() {
+        navController.navigate(R.id.action_mainFragment_to_roomsListFragment)
+    }
+
 
     private fun navigateToStartUserScreen() {
         navController.navigate(R.id.action_mainFragment_to_startUserFragment)

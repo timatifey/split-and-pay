@@ -3,6 +3,7 @@ package com.example.splitandpay.app
 import android.app.Application
 import com.example.splitandpay.network.di.networkModule
 import com.example.splitandpay.room.di.roomModule
+import com.example.splitandpay.rooms.di.roomsListModule
 import com.example.splitandpay.user.di.startUserModule
 import com.example.splitandpay.user.di.userModule
 import org.koin.android.ext.koin.androidContext
@@ -20,6 +21,7 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 roomModule,
+                roomsListModule,
                 networkModule,
                 userModule,
                 startUserModule,
