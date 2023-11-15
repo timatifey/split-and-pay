@@ -1,4 +1,4 @@
-FROM 8.4.0-jdk21-alpine as builder
+FROM gradle:8.4.0-jdk21-alpine as builder
 WORKDIR /split-and-pay/backend
 COPY . .
 RUN gradle clean bootJar
