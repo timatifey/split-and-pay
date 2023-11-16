@@ -65,7 +65,7 @@ internal class RoomViewModel(
             ),
             ReceiptItem(
                 text = "Мясо",
-                amount = 1.0,
+                amount = 5000.0,
                 mainUser = null,
                 users = emptyList(),
             ),
@@ -166,7 +166,7 @@ internal class RoomViewModel(
         viewModelScope.launch {
             val response = apiService.addUserToProduct(
                 userId = userId,
-                roomId = 1, // replace hardcode with args
+                roomId = 123, // replace hardcode with args
                 userToProduct = UserToProduct(
                     productId = receiptItem.id,
                     userId = userId,

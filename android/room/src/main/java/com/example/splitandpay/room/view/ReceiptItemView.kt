@@ -48,6 +48,16 @@ internal fun ReceiptItemView(
             overflow = TextOverflow.Ellipsis,
         )
 
+        Text(
+            modifier = Modifier.width(80.dp),
+            textAlign = TextAlign.End,
+            text = "${state.amount}₽",
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
         LazyRow(
             reverseLayout = true,
             modifier = Modifier.requiredWidth(88.dp),
