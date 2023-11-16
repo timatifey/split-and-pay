@@ -1,5 +1,6 @@
 package com.example.splitandpay.network
 
+import com.example.splitandpay.network.model.CheckData
 import com.example.splitandpay.network.model.Product
 import com.example.splitandpay.network.model.ProductName
 import com.example.splitandpay.network.model.RandomName
@@ -72,6 +73,13 @@ public interface SplitAndPayApiService {
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
         @Body productName: ProductName,
+    ): Response<RoomDetails>
+
+    @POST("api/rooms/{roomId}/addProductFromCheck/")
+    suspend fun addProductFromCheck(
+        @Header("userId") userId: String,
+        @Path("roomId") roomId: Long,
+        @Body checkData: CheckData,
     ): Response<RoomDetails>
 
     // Misc
