@@ -13,6 +13,7 @@ retrofit = "2.9.0"
 okhttp = "4.11.0"
 gson = "2.10.1"
 material = "1.10.0"
+material3 = "1.1.2"
 
 [libraries]
 
@@ -41,7 +42,7 @@ androidx-compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-material2 = { module = "androidx.compose.material:material" }
-androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 
 ## DI
 
