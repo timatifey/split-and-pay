@@ -19,5 +19,8 @@ public data class RoomDetails(
     val users: List<User>,
 
     @SerializedName("receipt")
-    val receipt: List<ReceiptItem>
+    val receipt: List<ReceiptItem>,
+
+    @SerializedName("totalSum")
+    val totalSum: Double,
 )

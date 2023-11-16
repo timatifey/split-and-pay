@@ -8,6 +8,7 @@ import com.example.splitandpay.network.model.Room
 import com.example.splitandpay.network.model.RoomDetails
 import com.example.splitandpay.network.model.RoomId
 import com.example.splitandpay.network.model.RoomName
+import com.example.splitandpay.network.model.TotalSumForUser
 import com.example.splitandpay.network.model.UserId
 import com.example.splitandpay.network.model.Username
 
@@ -54,6 +55,12 @@ public interface SplitAndPayApiService {
         @Path("roomId") roomId: Long,
     ): Response<RoomDetails>
 
+    @GET("api/rooms/{roomId}/totalSumForUser")
+    suspend fun getTotalSumForUser(
+        @Header("userId") userId: String,
+        @Path("roomId") roomId: Long,
+    ): Response<TotalSumForUser>
+
     @GET("api/rooms/{roomId}/connect/")
     suspend fun connectToRoom(
         @Header("userId") userId: String,
@@ -70,6 +77,13 @@ public interface SplitAndPayApiService {
 
     @POST("api/rooms/{roomId}/addUserToProduct")
     suspend fun addUserToProduct(
+        @Header("userId") userId: String,
+        @Path("roomId") roomId: Long,
+        @Body userToProduct: UserToProduct,
+    ): Response<RoomDetails>
+
+    @POST("api/rooms/{roomId}/deleteUserFromProduct")
+    suspend fun deleteUserFromProduct(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
         @Body userToProduct: UserToProduct,
