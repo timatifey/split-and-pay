@@ -1,11 +1,21 @@
 package com.example.splitandpay.room
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.splitandpay.network.SplitAndPayApiService
+import com.example.splitandpay.network.model.ProductName
+import com.example.splitandpay.network.model.RoomDetails
 import com.example.splitandpay.room.models.ReceiptItem
+import com.example.splitandpay.user.UserDataHolder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
-internal class RoomViewModel : ViewModel() {
+internal class RoomViewModel(
+    private val apiService: SplitAndPayApiService,
+    private val userDataHolder: UserDataHolder,
+    private val roomModelMapper: RoomModelMapper,
+) : ViewModel() {
 
     private val mockState = RoomState.Content(
         items = listOf(
@@ -91,23 +101,70 @@ internal class RoomViewModel : ViewModel() {
     val state: StateFlow<RoomState>
         get() = _state
 
+    private val userId: String
+        get() = userDataHolder.userId!!
+
+    init {
+        fetchRoom()
+    }
+
     fun onReceiptEvent(roomEvent: RoomEvent) {
         when (roomEvent) {
             RoomEvent.OnRetryClick -> onRetryClick()
-            RoomEvent.OnItemClick -> onItemClick()
+            is RoomEvent.OnItemClick -> onItemClick(roomEvent.receiptItem)
             RoomEvent.CreateReceiptItem -> onCreateReceiptItemClick()
         }
     }
 
     private fun onRetryClick() {
-        // TODO
+        _state.value = RoomState.Loading
+        fetchRoom()
     }
 
-    private fun onItemClick() {
+    private fun onItemClick(receiptItem: ReceiptItem) {
+        viewModelScope.launch {
+            val response = apiService.addUserToProduct(
+                userId = userId,
+                roomId = 1, // replace hardcode with args
+                productName = ProductName(receiptItem.text)
+            )
 
+            if (!response.isSuccessful) {
+                setError(response.message())
+                return@launch
+            }
+
+            setContent(response.body()!!)
+        }
     }
 
     private fun onCreateReceiptItemClick() {
+        // TODO
+    }
 
+    private fun fetchRoom() {
+        viewModelScope.launch {
+            val response = apiService.getRoomDetails(
+                userId = userId,
+                roomId = 1, // replace hardcode with args
+            )
+
+            if (!response.isSuccessful) {
+                setError(response.message())
+                return@launch
+            }
+
+            setContent(response.body()!!)
+        }
+    }
+
+    private fun setError(text: String) {
+        _state.value = RoomState.Error(text)
+    }
+
+    private fun setContent(roomDetails: RoomDetails) {
+        _state.value = RoomState.Content(
+            items = roomDetails.receipt.map(roomModelMapper::mapReceiptItem)
+        )
     }
 }

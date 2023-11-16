@@ -1,7 +1,11 @@
 package com.example.splitandpay.room
 
-sealed interface RoomEvent {
+import com.example.splitandpay.room.models.ReceiptItem
+
+internal sealed interface RoomEvent {
     object OnRetryClick : RoomEvent
-    object OnItemClick : RoomEvent
+    data class OnItemClick(
+        val receiptItem: ReceiptItem,
+    ) : RoomEvent
     object CreateReceiptItem: RoomEvent
 }
