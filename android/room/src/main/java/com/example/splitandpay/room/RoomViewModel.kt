@@ -3,12 +3,11 @@ package com.example.splitandpay.room
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.splitandpay.network.SplitAndPayApiService
-import com.example.splitandpay.network.model.ProductName
+import com.example.splitandpay.network.model.UserToProduct
 import com.example.splitandpay.network.model.RoomDetails
 import com.example.splitandpay.room.models.ReceiptItem
 import com.example.splitandpay.room.models.User
 import com.example.splitandpay.user.UserDataHolder
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -156,7 +155,10 @@ internal class RoomViewModel(
             val response = apiService.addUserToProduct(
                 userId = userId,
                 roomId = 1, // replace hardcode with args
-                productName = ProductName(receiptItem.text)
+                userToProduct = UserToProduct(
+                    productId = receiptItem.id,
+                    userId = userId,
+                )
             )
 
             if (!response.isSuccessful) {
