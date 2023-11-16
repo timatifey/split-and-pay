@@ -48,7 +48,7 @@ public interface SplitAndPayApiService {
         @Header("userId") userId: String,
     ): Response<List<Room>>
 
-    @GET("api/rooms/{roomId}/")
+    @GET("api/rooms/{roomId}")
     suspend fun getRoomDetails(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
@@ -61,14 +61,14 @@ public interface SplitAndPayApiService {
     ): Response<RoomDetails>
 
     // Receipt
-    @POST("api/rooms/{roomId}/addProduct/")
+    @POST("api/rooms/{roomId}/addProduct")
     suspend fun addProduct(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
         @Body product: Product,
     ): Response<RoomDetails>
 
-    @POST("api/rooms/{roomId}/addUserToProduct/")
+    @POST("api/rooms/{roomId}/addUserToProduct")
     suspend fun addUserToProduct(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
