@@ -37,16 +37,19 @@ internal class AddRoomViewModel(
 
     fun onAddRoomEvent(addRoomEvent: AddRoomEvent) {
         when (addRoomEvent) {
-            is AddRoomEvent.OnCreateRoomClick -> createRoom(addRoomEvent.roomName)
-            is AddRoomEvent.OnConnectRoomClick -> connectToRoom(addRoomEvent.roomId)
+            is AddRoomEvent.OnCreateRoomClick -> createRoom(currentRoomName)
+            is AddRoomEvent.OnConnectRoomClick -> connectToRoom(currentRoomId)
             is AddRoomEvent.OnRoomIdFieldChange -> changeRoomId(addRoomEvent.value)
             is AddRoomEvent.OnRoomNameFieldChange -> changeRoomName(addRoomEvent.value)
         }
     }
 
-    private fun changeRoomId(roomId: Long?) {
-        currentRoomId = roomId ?: 0L
-        setInputStateForUi()
+    private fun changeRoomId(roomId: String) {
+        try {
+            currentRoomId = roomId.toLong()
+            setInputStateForUi()
+        } catch (ignored: NumberFormatException) {
+        }
     }
 
     private fun changeRoomName(roomName: String) {

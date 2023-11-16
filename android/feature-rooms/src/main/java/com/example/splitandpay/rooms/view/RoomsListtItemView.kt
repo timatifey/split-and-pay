@@ -48,7 +48,7 @@ internal fun RoomsItemView(
         ) {
             Text(
                 textAlign = TextAlign.Start,
-                text = state.id.toString(),
+                text = "${state.name} (id=${state.id})",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Normal,
@@ -74,6 +74,7 @@ private fun RoomsItemPreview() {
         RoomsItemView(
             RoomsListItem(
                 id = 124124,
+                name = "Party",
                 createdAt = "16.11.2023 16:34",
             ),
             onClick = {},

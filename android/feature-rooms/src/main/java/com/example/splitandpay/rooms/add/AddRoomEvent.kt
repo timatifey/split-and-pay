@@ -2,19 +2,15 @@ package com.example.splitandpay.rooms.add
 
 internal sealed interface AddRoomEvent {
 
-    data class OnCreateRoomClick(
-        val roomName: String,
-    ) : AddRoomEvent
+    object OnCreateRoomClick : AddRoomEvent
 
-    data class OnConnectRoomClick(
-        val roomId: Long,
-    ) : AddRoomEvent
+    object OnConnectRoomClick : AddRoomEvent
 
     data class OnRoomIdFieldChange(
-        val value: Long?
+        val value: String,
     ) : AddRoomEvent
 
     data class OnRoomNameFieldChange(
-        val value: String
+        val value: String,
     ) : AddRoomEvent
 }

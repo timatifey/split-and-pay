@@ -4,10 +4,10 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -24,22 +24,25 @@ import com.example.splitandpay.uikit.theme.MyApplicationTheme
 internal fun AddRoomView(
     state: AddRoomState,
     onAddRoomEvent: (AddRoomEvent) -> Unit,
+    dismiss: () -> Unit,
 ) {
     when (state) {
         is AddRoomState.Input -> InputContent(
             state = state,
             onAddRoomEvent = onAddRoomEvent,
+            dismiss = dismiss,
         )
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun InputContent(
     state: AddRoomState.Input,
     onAddRoomEvent: (AddRoomEvent) -> Unit,
+    dismiss: () -> Unit,
 ) {
     Column(
+        modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -48,13 +51,15 @@ private fun InputContent(
         TextField(
             value = state.roomName,
             onValueChange = { onAddRoomEvent(AddRoomEvent.OnRoomNameFieldChange(it)) },
-            label = { Text("Room name") }
+            label = { Text("Room name") },
         )
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
+            enabled = state.roomName.isNotEmpty(),
             onClick = {
-                onAddRoomEvent(AddRoomEvent.OnCreateRoomClick(state.roomName))
+                onAddRoomEvent(AddRoomEvent.OnCreateRoomClick)
+                dismiss()
             }
         ) {
             Text(text = "Create")
@@ -64,19 +69,20 @@ private fun InputContent(
         TextField(
             value = state.roomId.toString(),
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Decimal),
-            onValueChange = { onAddRoomEvent(AddRoomEvent.OnRoomIdFieldChange(it.toLong())) },
-            label = { Text("Room Id") }
+            onValueChange = { onAddRoomEvent(AddRoomEvent.OnRoomIdFieldChange(it)) },
+            label = { Text("Room Id") },
         )
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
             onClick = {
-                onAddRoomEvent(AddRoomEvent.OnConnectRoomClick(state.roomId))
+                onAddRoomEvent(AddRoomEvent.OnConnectRoomClick)
+                dismiss()
             }
         ) {
             Text(text = "Connect")
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(32.dp))
     }
 }
 
@@ -91,6 +97,7 @@ private fun StartUserViewPreview() {
                 roomId = 1235334,
             ),
             onAddRoomEvent = {},
+            dismiss = {},
         )
     }
 }

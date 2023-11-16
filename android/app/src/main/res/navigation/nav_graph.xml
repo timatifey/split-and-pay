@@ -40,14 +40,15 @@
         <action
             android:id="@+id/action_roomsListFragment_to_addRoomFragment"
             app:destination="@id/addRoomFragment" />
+        <deepLink app:uri="android-app://splitandpay/roomsListFragment" />
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/addRoomFragment"
         android:name="com.example.splitandpay.rooms.add.AddRoomFragment"
         android:label="AddRoomFragment">
 
         <deepLink app:uri="android-app://splitandpay/addRoomFragment" />
-    </dialog>
+    </fragment>
     <dialog
         android:id="@+id/createProductFragment"
         android:name="com.example.splitandpay.createproduct.CreateProductFragment"

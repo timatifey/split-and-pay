@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.splitandpay.network.SplitAndPayApiService
 import com.example.splitandpay.rooms.model.RoomsListItem
+import com.example.splitandpay.user.UserDataHolder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import com.example.splitandpay.user.UserDataHolder
+import java.text.SimpleDateFormat
+import java.util.Date
 
 internal class RoomsListViewModel constructor(
     private val userDataHolder: UserDataHolder,
@@ -28,6 +30,9 @@ internal class RoomsListViewModel constructor(
         fetchRooms()
     }
 
+    private val format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+    private val uiFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+
     fun onRoomsListEvent(event: RoomsListEvent) {
         when (event) {
             is RoomsListEvent.OnRoomsItemClick -> {}
@@ -39,21 +44,20 @@ internal class RoomsListViewModel constructor(
 
     private fun fetchRooms() {
         viewModelScope.launch {
+            _state.value = RoomsListState.Loading
             val response = apiService.getRooms(userId)
             if (!response.isSuccessful) {
                 _state.value = RoomsListState.Error(response.message())
                 return@launch
             }
             val rooms = response.body()!!
-            _state.value = when {
-                rooms.isEmpty() -> RoomsListState.EmptyList
-                else -> RoomsListState.Content(rooms.map {
-                    RoomsListItem(
-                        id = it.id,
-                        createdAt = it.createdAt,
-                    )
-                })
-            }
+            _state.value = RoomsListState.Content(rooms.map {
+                RoomsListItem(
+                    id = it.id,
+                    name = it.name,
+                    createdAt = uiFormat.format(format.parse(it.createdAt)),
+                )
+            })
         }
     }
 }
