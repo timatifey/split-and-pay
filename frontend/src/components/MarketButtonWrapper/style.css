@@ -1,0 +1,56 @@
+.market-button-wrapper {
+  align-items: center;
+  background-color: var(--light-background-color);
+  border: 1px solid;
+  border-color: var(--muted-color);
+  border-radius: 10px;
+  box-shadow: var(--light-dropshadow);
+  display: inline-flex;
+  gap: 25px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 18px 28px;
+  position: relative;
+}
+
+.market-button-wrapper .icn-svg-icn-icn-lg {
+  height: 38px;
+  position: relative;
+  width: 35px;
+}
+
+.market-button-wrapper .text-button-2 {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.market-button-wrapper .text-wrapper-2 {
+  color: var(--text-color);
+  font-family: var(--btn-text-font-family);
+  font-size: var(--btn-text-font-size);
+  font-style: var(--btn-text-font-style);
+  font-weight: var(--btn-text-font-weight);
+  letter-spacing: var(--btn-text-letter-spacing);
+  line-height: var(--btn-text-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.market-button-wrapper .text-wrapper-3 {
+  color: var(--text-color);
+  font-family: var(--h-4-font-family);
+  font-size: var(--h-4-font-size);
+  font-style: var(--h-4-font-style);
+  font-weight: var(--h-4-font-weight);
+  letter-spacing: var(--h-4-letter-spacing);
+  line-height: var(--h-4-line-height);
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}

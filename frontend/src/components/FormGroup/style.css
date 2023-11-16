@@ -1,0 +1,68 @@
+.form-group {
+    height: 125px;
+    position: relative;
+    width: 450px;
+}
+
+.form-group .form-control {
+    color: var(--text-color);
+    font-family: "Montserrat", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 0.1px;
+    line-height: 24px;
+    position: absolute;
+    top: -1px;
+    white-space: nowrap;
+}
+
+.form-group .form-control-input {
+    height: 50px;
+    left: 2px;
+    position: absolute;
+    top: 41px;
+    width: 450px;
+}
+
+.form-group .input-form-control {
+    background-color: #f8f8f8;
+    border: 1px solid;
+    border-color: #e6e6e6;
+    border-radius: 5px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
+
+.form-group .email {
+    border: none;
+    background: transparent;
+    color: var(--second-text-color);
+    font-family: "Montserrat", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 21px;
+    letter-spacing: 0.2px;
+    line-height: 28px;
+    position: absolute;
+    top: 10px;
+    white-space: nowrap;
+}
+
+.form-group .email:focus {
+    outline: none;
+}
+
+.form-group .form-text {
+    color: var(--second-text-color);
+    font-family: "Montserrat", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 2px;
+    letter-spacing: 0.2px;
+    line-height: 28px;
+    position: absolute;
+    top: 96px;
+    white-space: nowrap;
+}

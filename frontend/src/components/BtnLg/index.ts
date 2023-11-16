@@ -1,0 +1,1 @@
+export { BtnLg } from "./BtnLg";

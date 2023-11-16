@@ -1,0 +1,92 @@
+.frame {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.frame .div-2 {
+    background-color: #ffffff;
+    width: 100%;
+}
+
+.frame .p {
+    color: var(--text-color);
+    font-family: "Sansation Light-Light", Helvetica;
+    font-size: 42px;
+    font-weight: 300;
+    height: 47px;
+    left: 478px;
+    letter-spacing: 0.31px;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 395px;
+    white-space: nowrap;
+}
+
+.frame .text-wrapper-4 {
+    color: var(--text-color);
+    font-family: "Sansation-Regular", Helvetica;
+    font-size: 111px;
+    font-weight: 400;
+    height: 124px;
+    left: 485px;
+    letter-spacing: 0.31px;
+    line-height: normal;
+    position: absolute;
+    top: 271px;
+    white-space: nowrap;
+}
+
+.frame .btn-lg-15 {
+    left: 780px !important;
+    position: absolute !important;
+    top: 540px !important;
+}
+
+.frame .market-button-instance {
+    left: 706px !important;
+    position: absolute ;
+    bottom: 10px !important;
+}
+
+.frame .design-component-instance-node {
+    left: 964px !important;
+    position: absolute !important;
+    bottom: 10px !important;
+}
+
+.frame .div {
+    background-color: #ffffff;
+    position: relative;
+    width: 100%;
+}
+
+.frame .text-wrapper {
+    color: var(--text-color);
+    font-family: "Sansation-Regular", Helvetica;
+    font-size: 40px;
+    font-weight: 400;
+    height: 45px;
+    left: 787px;
+    letter-spacing: 0.31px;
+    line-height: normal;
+    position: absolute;
+    top: 12px;
+    white-space: nowrap;
+}
+
+.frame .form-group-1 {
+    left: 735px !important;
+    position: absolute !important;
+    top: 415px !important;
+}
+
+.frame .btn-lg-1 {
+    left: 876px !important;
+    position: absolute !important;
+    top: 630px !important;
+}
+
