@@ -44,14 +44,25 @@ internal class RoomViewModel(
 
     private fun onItemClick(receiptItem: ReceiptItem) {
         viewModelScope.launch {
-            val response = apiService.addUserToProduct(
-                userId = userId,
-                roomId = 1, // replace hardcode with args
-                userToProduct = UserToProduct(
-                    productId = receiptItem.id,
+            val response = if (receiptItem.mainUser == null) {
+                apiService.addUserToProduct(
                     userId = userId,
+                    roomId = 1, // replace hardcode with args
+                    userToProduct = UserToProduct(
+                        productId = receiptItem.id,
+                        userId = userId,
+                    ),
                 )
-            )
+            } else {
+                apiService.deleteUserFromProduct(
+                    userId = userId,
+                    roomId = 1, // replace hardcode with args
+                    userToProduct = UserToProduct(
+                        productId = receiptItem.id,
+                        userId = userId,
+                    ),
+                )
+            }
 
             if (!response.isSuccessful) {
                 setError(response.message())
@@ -90,7 +101,8 @@ internal class RoomViewModel(
         _state.value = RoomState.Content(
             items = roomDetails.receipt.map {
                 roomModelMapper.mapReceiptItem(mainUser = userId, it)
-            }
+            },
+            totalSum = roomDetails.totalSum,
         )
     }
 }

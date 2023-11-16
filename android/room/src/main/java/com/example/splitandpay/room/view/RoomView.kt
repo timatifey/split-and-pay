@@ -110,7 +110,7 @@ private fun Content(
 
                 Text(
                     textAlign = TextAlign.Start,
-                    text = "₽",
+                    text = "${state.totalSum}₽",
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.SemiBold,
@@ -161,7 +161,8 @@ private fun RoomViewPreview() {
                         mainUser = null,
                         users = emptyList(),
                     ),
-                )
+                ),
+                totalSum = 3.0,
             ),
             onRoomEvent = {},
             onCreateNewProduct = {}
