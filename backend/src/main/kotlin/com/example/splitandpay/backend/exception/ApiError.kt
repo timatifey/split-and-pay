@@ -23,5 +23,5 @@ sealed class ApiError(val code: HttpStatus, override val message: String) : Thro
         "Product $productName - $productAmount was already added"
     )
 
-    data class ProductNotFound(val name: String) : ApiError(HttpStatus.NOT_FOUND, "Product $name was not found.")
+    data class ProductNotFound(val id: Int) : ApiError(HttpStatus.NOT_FOUND, "Product with id $id was not found.")
 }

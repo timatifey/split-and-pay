@@ -6,7 +6,7 @@ import org.bson.types.ObjectId
 
 @Serializable
 data class AddUserToProduct(
-    val productName: String,
+    val productId: Int,
     @Serializable(with = ObjectIdSerializer::class)
     val userId: ObjectId,
 )

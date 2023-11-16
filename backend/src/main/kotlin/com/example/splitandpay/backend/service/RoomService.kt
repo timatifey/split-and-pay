@@ -95,8 +95,9 @@ class RoomService(
             throw ApiError.AccessDenied
         }
         val checkDto = proverkaCheckaService.sendCheck(addProductFromCheckRequest.checkData)
-        checkDto.data.json.items.forEach {
-            room.products.add(Product(it.name, (it.sum).toDouble() / 100))
+        val productsSize = room.products.size
+        checkDto.data.json.items.forEachIndexed { index, item ->
+            room.products.add(Product(item.name, productsSize + index, (item.sum).toDouble() / 100))
         }
         return roomRepository.save(room).toDto()
     }
@@ -109,7 +110,7 @@ class RoomService(
         if (room.products.find { it.name == addProductRequest.name } != null) {
             throw ApiError.ProductAlreadyAdded(addProductRequest.name, addProductRequest.amount)
         }
-        room.products.add(Product(addProductRequest.name, addProductRequest.amount))
+        room.products.add(Product(addProductRequest.name, room.products.size, addProductRequest.amount))
         return roomRepository.save(room).toDto()
     }
 
@@ -120,9 +121,10 @@ class RoomService(
             owner = owner,
             createdAt = createdAt,
             users = userRepository.findAllById(participants).map { OwnerDto(it.id, it.name) },
-            receipt = products.map { (name, amount, users) ->
+            receipt = products.map { (name, id, amount, users) ->
                 ProductDto(
                     name = name,
+                    id = id,
                     amount = amount,
                     users = userRepository.findAllById(users).map { OwnerDto(it.id, it.name) })
             }
@@ -137,8 +139,8 @@ class RoomService(
         if (addUserToProduct.userId != room.owner.id && addUserToProduct.userId !in room.participants) {
             throw ApiError.UserNotFound(addUserToProduct.userId.toHexString())
         }
-        val product = room.products.find { it.name == addUserToProduct.productName }
-            ?: throw ApiError.ProductNotFound(addUserToProduct.productName)
+        val product = room.products.find { it.id == addUserToProduct.productId }
+            ?: throw ApiError.ProductNotFound(addUserToProduct.productId)
         product.users.add(addUserToProduct.userId)
         return roomRepository.save(room).toDto()
     }

@@ -7,6 +7,7 @@ import org.bson.types.ObjectId
 @Serializable
 data class Product(
     val name: String,
+    val id: Int,
     val amount: Double,
     val users: MutableList<@Serializable(with = ObjectIdSerializer::class) ObjectId> = mutableListOf()
 )
