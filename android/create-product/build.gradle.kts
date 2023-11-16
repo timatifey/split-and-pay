@@ -30,6 +30,7 @@ dependencies {
     implementation(project(":ui-kit"))
     implementation(project(":network"))
     implementation(project(":feature-user"))
+    implementation(project(":room"))
 
     implementation(libs.material)
     implementation(libs.androidx.lifecycle.runtime.compose)

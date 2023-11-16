@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.splitandpay.createproduct.models.NewProduct
 import com.example.splitandpay.network.SplitAndPayApiService
 import com.example.splitandpay.network.model.Product
+import com.example.splitandpay.room.RoomDataHolder
 import com.example.splitandpay.user.UserDataHolder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +31,7 @@ internal class CreateProductViewModel(
         get() = _state
 
     private val userId: String
-        get() = "6555fdf106fdf7753ebaa443" // userDataHolder.userId!!
+        get() = userDataHolder.userId!!
 
     fun onCreateProductEvent(createProductEvent: CreateProductEvent) {
         when (createProductEvent) {
@@ -54,7 +55,7 @@ internal class CreateProductViewModel(
         viewModelScope.launch {
             apiService.addProduct(
                 userId = userId,
-                roomId = 1, //replace hardcode with args,
+                roomId = RoomDataHolder.roomId,
                 product = Product(
                     productName = newProduct.productName,
                     amount = newProduct.amount,

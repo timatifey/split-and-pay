@@ -61,7 +61,7 @@ public interface SplitAndPayApiService {
         @Path("roomId") roomId: Long,
     ): Response<TotalSumForUser>
 
-    @GET("api/rooms/{roomId}/connect/")
+    @GET("api/rooms/{roomId}/connect")
     suspend fun connectToRoom(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
