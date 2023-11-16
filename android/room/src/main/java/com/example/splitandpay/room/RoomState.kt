@@ -13,4 +13,6 @@ internal sealed interface RoomState {
     ) : RoomState
 
     object Loading : RoomState
+
+    object CreateNewProduct : RoomState
 }

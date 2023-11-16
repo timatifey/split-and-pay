@@ -12,10 +12,13 @@ koin = "3.5.0"
 retrofit = "2.9.0"
 okhttp = "4.11.0"
 gson = "2.10.1"
+material = "1.10.0"
 
 [libraries]
 
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+
+material = { module = "com.google.android.material:material", version.ref = "material" }
 
 ##androidx
 
