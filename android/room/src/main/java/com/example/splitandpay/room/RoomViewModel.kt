@@ -18,135 +18,15 @@ internal class RoomViewModel(
     private val roomModelMapper: RoomModelMapper,
 ) : ViewModel() {
 
-    private val mockState = RoomState.Content(
-        items = listOf(
-            ReceiptItem(
-                text = "Мясо, Мясо, Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо МясоМясо Мясо МясоМясо ",
-                amount = 1.0,
-                mainUser = User(
-                    id = "1",
-                    username = "Андрей Остапчук",
-                    shortName = "АО",
-                ),
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Хлеб",
-                amount = 1.0,
-                mainUser = null,
-                users = listOf(
-                    User(
-                        id = "",
-                        username = "Тимофей Плетнёв",
-                        shortName = "ТП",
-                    ),
-                ),
-            ),
-            ReceiptItem(
-                text = "Пиво",
-                amount = 1.0,
-                mainUser = User(
-                    id = "1",
-                    username = "Андрей Остапчук",
-                    shortName = "АО",
-                ),
-                users = listOf(
-                    User(
-                        id = "",
-                        username = "Тимофей Плетнёв",
-                        shortName = "ТП",
-                    ),
-                    User(
-                        id = "",
-                        username = "Виктор Коротких",
-                        shortName = "ВК",
-                    ),
-                ),
-            ),
-            ReceiptItem(
-                text = "Мясо",
-                amount = 5000.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Хлеб",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Пиво",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Мясо",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Хлеб",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Пиво",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Мясо",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Хлеб",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Пиво",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Мясо",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Хлеб",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-            ReceiptItem(
-                text = "Пиво",
-                amount = 1.0,
-                mainUser = null,
-                users = emptyList(),
-            ),
-        )
-    )
-
-    private val _state: MutableStateFlow<RoomState> = MutableStateFlow(mockState)
+    private val _state: MutableStateFlow<RoomState> = MutableStateFlow(RoomState.Loading)
     val state: StateFlow<RoomState>
         get() = _state
 
     private val userId: String
-        get() = userDataHolder.userId!!
+        get() = "6555fdf106fdf7753ebaa443" // userDataHolder.userId!!
 
     init {
-        //fetchRoom()
+        fetchRoom()
     }
 
     fun onReceiptEvent(roomEvent: RoomEvent) {
@@ -166,7 +46,7 @@ internal class RoomViewModel(
         viewModelScope.launch {
             val response = apiService.addUserToProduct(
                 userId = userId,
-                roomId = 123, // replace hardcode with args
+                roomId = 1, // replace hardcode with args
                 userToProduct = UserToProduct(
                     productId = receiptItem.id,
                     userId = userId,

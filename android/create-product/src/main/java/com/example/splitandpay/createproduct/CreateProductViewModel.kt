@@ -30,7 +30,7 @@ internal class CreateProductViewModel(
         get() = _state
 
     private val userId: String
-        get() = userDataHolder.userId!!
+        get() = "6555fdf106fdf7753ebaa443" // userDataHolder.userId!!
 
     fun onCreateProductEvent(createProductEvent: CreateProductEvent) {
         when (createProductEvent) {
