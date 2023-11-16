@@ -12,6 +12,10 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -32,18 +37,32 @@ import com.example.splitandpay.uikit.error.ErrorView
 import com.example.splitandpay.uikit.loading.Loading
 import com.example.splitandpay.uikit.theme.MyApplicationTheme
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun RoomsListView(
     state: RoomsListState,
     username: String,
     onRoomsListEvent: (RoomsListEvent) -> Unit,
+    onAddRoomClick: () -> Unit,
 ) {
-    Column {
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = state is RoomsListState.Loading,
+        onRefresh = { onRoomsListEvent(RoomsListEvent.OnRetryClick) }
+    )
+    Column(
+        modifier = Modifier.pullRefresh(pullRefreshState),
+    ) {
         UserHeader(username)
         when (state) {
             is RoomsListState.Content -> Content(
                 state = state,
                 onRoomsListEvent = onRoomsListEvent,
+                onAddRoomClick = onAddRoomClick,
+            )
+
+            is RoomsListState.EmptyList -> EmptyList(
+                onRoomsListEvent = onRoomsListEvent,
+                onAddRoomClick = onAddRoomClick,
             )
 
             is RoomsListState.Error -> ErrorView(
@@ -52,8 +71,13 @@ internal fun RoomsListView(
             )
 
             is RoomsListState.Loading -> Loading()
-            is RoomsListState.EmptyList -> EmptyList(onRoomsListEvent = onRoomsListEvent)
         }
+        PullRefreshIndicator(
+            refreshing = state is RoomsListState.Loading,
+            state = pullRefreshState,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            backgroundColor = if (state is RoomsListState.Loading) Color.Red else Color.Green,
+        )
     }
 }
 
@@ -74,6 +98,7 @@ private fun UserHeader(username: String) {
 @Composable
 private fun EmptyList(
     onRoomsListEvent: (RoomsListEvent) -> Unit,
+    onAddRoomClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -99,7 +124,10 @@ private fun EmptyList(
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 16.dp),
             shape = RoundedCornerShape(size = 1000.dp),
-            onClick = { onRoomsListEvent(RoomsListEvent.OnAddButtonClick) }
+            onClick = {
+                onRoomsListEvent(RoomsListEvent.OnAddButtonClick)
+                onAddRoomClick.invoke()
+            }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_plus),
@@ -114,6 +142,7 @@ private fun EmptyList(
 private fun Content(
     state: RoomsListState.Content,
     onRoomsListEvent: (RoomsListEvent) -> Unit,
+    onAddRoomClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier.padding(horizontal = 8.dp),
@@ -141,7 +170,10 @@ private fun Content(
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 16.dp),
             shape = RoundedCornerShape(size = 1000.dp),
-            onClick = { onRoomsListEvent(RoomsListEvent.OnAddButtonClick) }
+            onClick = {
+                onRoomsListEvent(RoomsListEvent.OnAddButtonClick)
+                onAddRoomClick.invoke()
+            }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_plus),
@@ -176,6 +208,7 @@ private fun RoomsListViewPreview() {
             ),
             username = "Алексей",
             onRoomsListEvent = {},
+            onAddRoomClick = {},
         )
     }
 }
@@ -189,6 +222,7 @@ private fun RoomsListViewEmptyPreview() {
             state = RoomsListState.EmptyList,
             username = "Алексей",
             onRoomsListEvent = {},
+            onAddRoomClick = {},
         )
     }
 }
