@@ -1,11 +1,7 @@
 package com.example.splitandpay.backend.controller
 
 import com.example.splitandpay.backend.exception.ApiError
-import com.example.splitandpay.backend.model.dto.AddProductRequest
-import com.example.splitandpay.backend.model.dto.AddUserToProduct
-import com.example.splitandpay.backend.model.dto.CreateRoomRequest
-import com.example.splitandpay.backend.model.dto.CreateRoomResponse
-import com.example.splitandpay.backend.model.dto.RoomDto
+import com.example.splitandpay.backend.model.dto.*
 import com.example.splitandpay.backend.service.RoomService
 import com.example.splitandpay.backend.utils.toObjectId
 import org.springframework.web.bind.annotation.GetMapping
@@ -49,9 +45,9 @@ class RoomController(
     fun addProductFromCheck(
         @RequestHeader userId: String,
         @PathVariable roomId: Long,
-        @RequestBody checkData: String
+        @RequestBody addProductFromCheckRequest: AddProductFromCheckRequest
     ): RoomDto {
-        return roomService.addProductsFromCheck(userId.toObjectId(), roomId, checkData)
+        return roomService.addProductsFromCheck(userId.toObjectId(), roomId, addProductFromCheckRequest)
     }
 
     @PostMapping("/{roomId}/addUserToProduct")
