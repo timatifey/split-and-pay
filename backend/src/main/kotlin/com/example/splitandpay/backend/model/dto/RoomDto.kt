@@ -13,4 +13,5 @@ data class RoomDto(
     val createdAt: LocalDateTime,
     val users: List<OwnerDto>? = null,
     val receipt: List<ProductDto>? = null,
+    val totalSum: Double? = null,
 )
