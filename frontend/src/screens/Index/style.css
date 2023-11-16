@@ -48,14 +48,14 @@
 
 .frame .market-button-instance {
     left: 706px !important;
-    position: absolute ;
-    bottom: 10px !important;
+    position: absolute !important;
+    bottom: 1% !important;
 }
 
 .frame .design-component-instance-node {
     left: 964px !important;
     position: absolute !important;
-    bottom: 10px !important;
+    bottom: 1% !important;
 }
 
 .frame .div {
@@ -90,3 +90,59 @@
     top: 630px !important;
 }
 
+.btn {
+    all: unset;
+    align-items: center;
+    background-color: var(--primary-color);
+    border-radius: 37px;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    padding: 15px 36px;
+    position: relative;
+}
+
+.btn .btn-text {
+    all: unset;
+    box-sizing: border-box;
+    color: var(--light-text-color);
+    font-family: var(--btn-text-font-family);
+    font-size: var(--btn-text-font-size);
+    font-style: var(--btn-text-font-style);
+    font-weight: var(--btn-text-font-weight);
+    letter-spacing: var(--btn-text-letter-spacing);
+    line-height: var(--btn-text-line-height);
+    margin-top: -1px;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frame .btn-10 {
+    display: flex !important;
+    height: 38px !important;
+    justify-content: center !important;
+    left: 1198px !important;
+    position: absolute !important;
+    top: 463px !important;
+    width: 126px !important;
+}
+
+.frame .btn-instance {
+    font-family: "Montserrat", Helvetica !important;
+    left: auto !important;
+    top: auto !important;
+    position: absolute !important;
+    font-size: 12px !important;
+    font-style: unset !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px !important;
+    line-height: 28px !important;
+    margin-bottom: -9px !important;
+    margin-left: -24.5px !important;
+    margin-right: -24.5px !important;
+    margin-top: -11px !important;
+}

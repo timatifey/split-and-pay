@@ -11,6 +11,7 @@ interface FormGroupConfig {
     text2: string
     invalid: boolean
     onChangeHandler: ChangeEventHandler<HTMLInputElement>
+    value: string
 }
 
 export const FormGroup = (
@@ -20,7 +21,8 @@ export const FormGroup = (
         text1,
         text2,
         invalid,
-        onChangeHandler
+        onChangeHandler,
+        value
     }: FormGroupConfig
 ) => {
     return (
@@ -28,7 +30,7 @@ export const FormGroup = (
             <div data-tooltip-id="my-tooltip" className="form-control">{text}</div>
             <div className="form-control-input">
                 <div className="input-form-control" style={{borderColor: invalid ? "#f30e0e" : "#e6e6e6"}}>
-                    <input className="email" placeholder={text1} onChange={onChangeHandler}/>
+                    <input className="email" placeholder={text1} onChange={onChangeHandler} value={value}/>
                 </div>
             </div>
             <Tooltip

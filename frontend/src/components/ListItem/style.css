@@ -16,14 +16,6 @@
     width: 100%;
 }
 
-.list-item .line {
-    height: 251px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 5px;
-}
-
 .list-item .h {
     color: var(--text-color);
     font-family: var(--h-3-font-family);

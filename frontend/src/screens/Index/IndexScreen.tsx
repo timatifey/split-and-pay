@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState, useTransition} from "react";
+import React, {ChangeEvent, useEffect, useState, useTransition} from "react";
 import {BtnLg} from "../../components/BtnLg";
 import {MarketButton} from "../../components/MarketButton";
 import {MarketButtonWrapper} from "../../components/MarketButtonWrapper";
@@ -6,7 +6,7 @@ import "./style.css";
 import {FormGroup} from "../../components/FormGroup/FormGroup";
 import userService from "../../service/UserService";
 import UserDto from "../../model/UserDto";
-import {NavigateFunction, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export const IndexScreen: React.FC = () => {
     const [, startTransition] = useTransition();
@@ -14,6 +14,13 @@ export const IndexScreen: React.FC = () => {
     const [invalidInput, setInvalidInput] = useState(false)
     const [name, setName] = useState("")
 
+    let navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.getItem('userId') != null) {
+            navigate('/home')
+        }
+    }, [navigate]);
 
 
     function selectTab(nextTab: string) {
@@ -45,7 +52,8 @@ export const IndexScreen: React.FC = () => {
     let enterName = (
         <div className="div">
             <div className="text-wrapper">Разделяй и плати</div>
-            <FormGroup invalid={invalidInput} onChangeHandler={onChangeName} className="form-group-1" text="Ваше имя*"
+            <FormGroup invalid={invalidInput} onChangeHandler={onChangeName} value={name} className="form-group-1"
+                       text="Ваше имя*"
                        text1="Имя *"
                        text2="Нам нужно как-то вас различать :)"/>
             <BtnLg className="btn-lg-1" text="Начать" onClickHandler={() => {
@@ -53,10 +61,22 @@ export const IndexScreen: React.FC = () => {
                     setInvalidInput(true)
                     return
                 }
-                userService.createUser(new UserDto(name)).then(() => {
-
+                userService.createUser(new UserDto(name)).then((r) => {
+                    localStorage.setItem('userId', r.data.id)
+                    localStorage.setItem('userName', name)
+                    navigate('/home')
+                }, (error) => {
+                    console.log(error)
                 })
             }}/>
+            <button className="btn btn-10" onClick={() => {
+                userService.generateRandomName().then((r) => {
+                    setInvalidInput(false)
+                    setName(r.data.username)
+                })
+            }}>
+                <div className="btn-text btn-instance">Случайное имя</div>
+            </button>
         </div>
     );
     return <div className="frame">

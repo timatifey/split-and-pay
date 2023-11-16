@@ -6,12 +6,10 @@ import {HomeScreen} from "./screens/Home/HomeScreen";
 
 const App: React.FC = () => {
     return (
-        <div className="App">
-            <Routes>
-                <Route path="/" element={<IndexScreen/>}/>
-                <Route path="/home" element={<HomeScreen/>}/>
-            </Routes>
-        </div>
+        <Routes>
+            <Route path="/" element={<IndexScreen/>}/>
+            <Route path="/home" element={<HomeScreen/>}/>
+        </Routes>
     );
 }
 
