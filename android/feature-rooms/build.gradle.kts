@@ -44,9 +44,12 @@ dependencies {
     implementation(project(":network"))
     implementation(project(":feature-user"))
 
+    implementation(libs.material)
+    implementation(libs.androidx.compose.material2)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.fragment)
 
     implementation(platform(libs.compose.bom))

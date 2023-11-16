@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.splitandpay.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/roomFragment"
         android:name="com.example.splitandpay.room.RoomFragment"
-        android:label="RoomFragment" >
+        android:label="RoomFragment">
         <action
             android:id="@+id/action_roomFragment_to_createProductFragment"
             app:destination="@id/createProductFragment" />
@@ -36,11 +36,23 @@
     <fragment
         android:id="@+id/roomsListFragment"
         android:name="com.example.splitandpay.rooms.RoomsListFragment"
-        android:label="RoomsListFragment" />
+        android:label="RoomsListFragment">
+        <action
+            android:id="@+id/action_roomsListFragment_to_addRoomFragment"
+            app:destination="@id/addRoomFragment" />
+        <deepLink app:uri="android-app://splitandpay/roomsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRoomFragment"
+        android:name="com.example.splitandpay.rooms.add.AddRoomFragment"
+        android:label="AddRoomFragment">
+
+        <deepLink app:uri="android-app://splitandpay/addRoomFragment" />
+    </fragment>
     <dialog
         android:id="@+id/createProductFragment"
         android:name="com.example.splitandpay.createproduct.CreateProductFragment"
-        android:label="CreateProductFragment" >
+        android:label="CreateProductFragment">
 
         <deepLink app:uri="android-app://splitandpay/createProductFragment" />
     </dialog>

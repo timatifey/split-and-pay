@@ -13,6 +13,4 @@ internal sealed interface RoomsListState {
     ) : RoomsListState
 
     object Loading : RoomsListState
-
-    object EmptyList : RoomsListState
 }

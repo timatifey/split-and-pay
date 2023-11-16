@@ -6,20 +6,23 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,27 +35,52 @@ import com.example.splitandpay.uikit.error.ErrorView
 import com.example.splitandpay.uikit.loading.Loading
 import com.example.splitandpay.uikit.theme.MyApplicationTheme
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun RoomsListView(
     state: RoomsListState,
     username: String,
     onRoomsListEvent: (RoomsListEvent) -> Unit,
+    onAddRoomClick: () -> Unit,
 ) {
-    Column {
-        UserHeader(username)
-        when (state) {
-            is RoomsListState.Content -> Content(
-                state = state,
-                onRoomsListEvent = onRoomsListEvent,
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = state is RoomsListState.Loading,
+        onRefresh = { onRoomsListEvent(RoomsListEvent.OnRetryClick) }
+    )
+    Scaffold(
+        modifier = Modifier.pullRefresh(pullRefreshState),
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                text = { Text("Add room") },
+                icon = { Icon(Icons.Filled.Add, contentDescription = "") },
+                onClick = { onAddRoomClick.invoke() }
             )
+        }
+    ) { contentPaddings: PaddingValues ->
+        Box(
+            modifier = Modifier.padding(contentPaddings),
+        ) {
+            Column {
+                UserHeader(username)
+                when (state) {
+                    is RoomsListState.Content -> Content(
+                        state = state,
+                        onRoomsListEvent = onRoomsListEvent,
+                    )
 
-            is RoomsListState.Error -> ErrorView(
-                text = state.text,
-                onClick = { onRoomsListEvent(RoomsListEvent.OnRetryClick) },
+                    is RoomsListState.Error -> ErrorView(
+                        text = state.text,
+                        onClick = { onRoomsListEvent(RoomsListEvent.OnRetryClick) },
+                    )
+
+                    is RoomsListState.Loading -> Loading()
+                }
+            }
+            PullRefreshIndicator(
+                refreshing = state is RoomsListState.Loading,
+                state = pullRefreshState,
+                modifier = Modifier.align(Alignment.TopCenter),
             )
-
-            is RoomsListState.Loading -> Loading()
-            is RoomsListState.EmptyList -> EmptyList(onRoomsListEvent = onRoomsListEvent)
         }
     }
 }
@@ -72,45 +100,6 @@ private fun UserHeader(username: String) {
 }
 
 @Composable
-private fun EmptyList(
-    onRoomsListEvent: (RoomsListEvent) -> Unit,
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 8.dp),
-    ) {
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 16.dp),
-        ) {
-            Text(
-                modifier = Modifier.align(Alignment.Center),
-                textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.empty_list_text),
-                style = MaterialTheme.typography.headlineSmall,
-            )
-        }
-        Button(
-            modifier = Modifier
-                .height(64.dp)
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 16.dp),
-            shape = RoundedCornerShape(size = 1000.dp),
-            onClick = { onRoomsListEvent(RoomsListEvent.OnAddButtonClick) }
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_plus),
-                contentDescription = null,
-                modifier = Modifier.requiredSize(28.dp),
-            )
-        }
-    }
-}
-
-@Composable
 private fun Content(
     state: RoomsListState.Content,
     onRoomsListEvent: (RoomsListEvent) -> Unit,
@@ -118,37 +107,41 @@ private fun Content(
     Box(
         modifier = Modifier.padding(horizontal = 8.dp),
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentPadding = PaddingValues(
-                top = 16.dp,
-                bottom = 120.dp,
-            ),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            items(state.items) {
-                RoomsItemView(
-                    state = it,
-                    onClick = { onRoomsListEvent(RoomsListEvent.OnRoomsItemClick(it.id)) }
-                )
+        if (state.items.isEmpty()) {
+            EmptyBox()
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(
+                    top = 16.dp,
+                    bottom = 120.dp,
+                ),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                items(state.items) {
+                    RoomsItemView(
+                        state = it,
+                        onClick = { onRoomsListEvent(RoomsListEvent.OnRoomsItemClick(it.id)) }
+                    )
+                }
             }
         }
+    }
+}
 
-        Button(
-            modifier = Modifier
-                .height(64.dp)
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 16.dp),
-            shape = RoundedCornerShape(size = 1000.dp),
-            onClick = { onRoomsListEvent(RoomsListEvent.OnAddButtonClick) }
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_plus),
-                contentDescription = null,
-                modifier = Modifier.requiredSize(28.dp),
-            )
-        }
+@Composable
+private fun EmptyBox() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 16.dp),
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            textAlign = TextAlign.Center,
+            text = stringResource(id = R.string.empty_list_text),
+            style = MaterialTheme.typography.headlineSmall,
+        )
     }
 }
 
@@ -162,20 +155,24 @@ private fun RoomsListViewPreview() {
                 items = listOf(
                     RoomsListItem(
                         id = 1,
+                        name = "Party 1",
                         createdAt = "16.11.2023 01:54",
                     ),
                     RoomsListItem(
                         id = 2,
+                        name = "Party 2",
                         createdAt = "16.11.2023 01:54",
                     ),
                     RoomsListItem(
                         id = 3,
+                        name = "Party 3",
                         createdAt = "16.11.2023 01:54",
                     ),
                 )
             ),
             username = "Алексей",
             onRoomsListEvent = {},
+            onAddRoomClick = {},
         )
     }
 }
@@ -186,10 +183,10 @@ private fun RoomsListViewPreview() {
 private fun RoomsListViewEmptyPreview() {
     MyApplicationTheme {
         RoomsListView(
-            state = RoomsListState.EmptyList,
+            state = RoomsListState.Content(items = listOf()),
             username = "Алексей",
             onRoomsListEvent = {},
+            onAddRoomClick = {},
         )
     }
 }
-

@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.splitandpay.createproduct.di.createProductModule
 import com.example.splitandpay.network.di.networkModule
 import com.example.splitandpay.room.di.roomModule
+import com.example.splitandpay.rooms.add.di.addRoomModule
 import com.example.splitandpay.rooms.di.roomsListModule
 import com.example.splitandpay.user.di.startUserModule
 import com.example.splitandpay.user.di.userModule
@@ -27,6 +28,7 @@ class App : Application() {
                 userModule,
                 startUserModule,
                 createProductModule,
+                addRoomModule,
             )
         }
     }

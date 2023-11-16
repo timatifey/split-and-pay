@@ -89,7 +89,7 @@ public interface SplitAndPayApiService {
         @Body userToProduct: UserToProduct,
     ): Response<RoomDetails>
 
-    @POST("api/rooms/{roomId}/addProductFromCheck/")
+    @POST("api/rooms/{roomId}/addProductFromCheck")
     suspend fun addProductFromCheck(
         @Header("userId") userId: String,
         @Path("roomId") roomId: Long,
@@ -97,6 +97,6 @@ public interface SplitAndPayApiService {
     ): Response<RoomDetails>
 
     // Misc
-    @GET("api/misc/randomName/")
+    @GET("api/misc/randomName")
     suspend fun getRandomName(): Response<RandomName>
 }
