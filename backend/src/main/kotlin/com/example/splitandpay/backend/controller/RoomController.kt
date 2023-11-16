@@ -66,7 +66,7 @@ class RoomController(
         return roomService.addOrDeleteUserToProductMapping(userId.toObjectId(), roomId, userToProduct, true)
     }
 
-    @DeleteMapping("/{roomId}/deleteUserFromProduct")
+    @PostMapping("/{roomId}/deleteUserFromProduct")
     fun deleteUserFromProduct(
         @RequestHeader userId: String,
         @PathVariable roomId: Long,
