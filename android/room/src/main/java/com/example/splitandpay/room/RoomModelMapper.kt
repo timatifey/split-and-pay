@@ -10,6 +10,7 @@ internal class RoomModelMapper {
 
     fun mapReceiptItem(receiptItem: ReceiptItemDTO) : ReceiptItem =
         ReceiptItem(
+            id = receiptItem.id,
             text = receiptItem.name,
             amount = receiptItem.amount,
             users = receiptItem.users.map(::mapUser)
