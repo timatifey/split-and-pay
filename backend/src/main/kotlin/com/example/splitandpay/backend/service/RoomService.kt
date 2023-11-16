@@ -7,13 +7,13 @@ import com.example.splitandpay.backend.model.db.RoomCounter
 import com.example.splitandpay.backend.model.db.User
 import com.example.splitandpay.backend.model.dto.AddProductFromCheckRequest
 import com.example.splitandpay.backend.model.dto.AddProductRequest
-import com.example.splitandpay.backend.model.dto.AddUserToProduct
 import com.example.splitandpay.backend.model.dto.CreateRoomRequest
 import com.example.splitandpay.backend.model.dto.OwnerDto
 import com.example.splitandpay.backend.model.dto.ProductDto
 import com.example.splitandpay.backend.model.dto.RoomDto
 import com.example.splitandpay.backend.model.dto.SumPerProductDto
 import com.example.splitandpay.backend.model.dto.TotalSumForUserDto
+import com.example.splitandpay.backend.model.dto.UserToProduct
 import com.example.splitandpay.backend.repository.RoomRepository
 import com.example.splitandpay.backend.repository.UserRepository
 import com.example.splitandpay.backend.service.check.ProverkaCheckaService
@@ -142,20 +142,6 @@ class RoomService(
         )
     }
 
-    fun addUserToProduct(userId: ObjectId, roomId: Long, addUserToProduct: AddUserToProduct): RoomDto {
-        val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
-        if (userId != room.owner.id && userId !in room.participants) {
-            throw ApiError.AccessDenied
-        }
-        if (addUserToProduct.userId != room.owner.id && addUserToProduct.userId !in room.participants) {
-            throw ApiError.UserNotFound(addUserToProduct.userId.toHexString())
-        }
-        val product = room.products.find { it.id == addUserToProduct.productId }
-            ?: throw ApiError.ProductNotFound(addUserToProduct.productId)
-        product.users.add(addUserToProduct.userId)
-        return roomRepository.save(room).toDto()
-    }
-
     fun connectToRoom(userId: ObjectId, roomId: Long): RoomDto {
         val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
         if (userId in room.participants) {
@@ -177,5 +163,28 @@ class RoomService(
                     .also { total += it.sum }
             }
         return TotalSumForUserDto(userId, total, perProduct)
+    }
+
+    fun addOrDeleteUserToProductMapping(
+        userId: ObjectId,
+        roomId: Long,
+        userToProduct: UserToProduct,
+        add: Boolean
+    ): RoomDto {
+        val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
+        if (userId != room.owner.id && userId !in room.participants) {
+            throw ApiError.AccessDenied
+        }
+        if (userToProduct.userId != room.owner.id && userToProduct.userId !in room.participants) {
+            throw ApiError.UserNotFound(userToProduct.userId.toHexString())
+        }
+        val product = room.products.find { it.id == userToProduct.productId }
+            ?: throw ApiError.ProductNotFound(userToProduct.productId)
+        if (add) {
+            product.users.add(userToProduct.userId)
+        } else {
+            product.users.remove(userToProduct.userId)
+        }
+        return roomRepository.save(room).toDto()
     }
 }

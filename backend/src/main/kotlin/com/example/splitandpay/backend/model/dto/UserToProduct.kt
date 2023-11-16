@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
 @Serializable
-data class AddUserToProduct(
+data class UserToProduct(
     val productId: Int,
     @Serializable(with = ObjectIdSerializer::class)
     val userId: ObjectId,
