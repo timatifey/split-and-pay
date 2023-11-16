@@ -97,6 +97,6 @@ public interface SplitAndPayApiService {
     ): Response<RoomDetails>
 
     // Misc
-    @GET("api/misc/randomName/")
+    @GET("api/misc/randomName")
     suspend fun getRandomName(): Response<RandomName>
 }
