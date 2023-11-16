@@ -5,5 +5,6 @@ import org.bson.types.ObjectId
 import org.springframework.data.mongodb.repository.MongoRepository
 
 interface RoomRepository : MongoRepository<Room, Long> {
-    fun findAllByOwnerId(ownerId: ObjectId): List<Room>
+
+    fun findAllByParticipantsContaining(id: ObjectId): List<Room>
 }
