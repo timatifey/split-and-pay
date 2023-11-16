@@ -82,7 +82,7 @@ class RoomService(
     }
 
     fun getRooms(ownerId: ObjectId): List<RoomDto> {
-        return roomRepository.findAllByOwnerId(ownerId).map {
+        return roomRepository.findAllByParticipantsContaining(ownerId).map {
             RoomDto(
                 it.id,
                 it.name,
