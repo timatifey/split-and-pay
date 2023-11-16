@@ -9,6 +9,9 @@ public data class Room(
     @SerializedName("id")
     val id: Long,
 
+    @SerializedName("name")
+    val name: String,
+
     @SerializedName("owner")
     val owner: User,
 
