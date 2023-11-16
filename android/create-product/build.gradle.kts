@@ -34,6 +34,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.navigation.fragment)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.compose.runtime)

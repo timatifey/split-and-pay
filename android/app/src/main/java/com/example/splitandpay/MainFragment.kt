@@ -38,11 +38,15 @@ class MainFragment : Fragment() {
 
         val userId = userDataHolder.userId
         val isUserIdExist = userId != null
+        navigateToRoomScreen()
+        /*
         if (isUserIdExist) {
             navigateToRoomsListScreen()
         } else {
             navigateToStartUserScreen()
         }
+
+         */
     }
 
     private fun navigateToRoomScreen() {
