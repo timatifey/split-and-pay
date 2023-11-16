@@ -4,6 +4,7 @@ import com.example.splitandpay.backend.exception.ApiError
 import com.example.splitandpay.backend.model.db.Product
 import com.example.splitandpay.backend.model.db.Room
 import com.example.splitandpay.backend.model.db.RoomCounter
+import com.example.splitandpay.backend.model.db.User
 import com.example.splitandpay.backend.model.dto.AddProductFromCheckRequest
 import com.example.splitandpay.backend.model.dto.AddProductRequest
 import com.example.splitandpay.backend.model.dto.AddUserToProduct
@@ -55,7 +56,15 @@ class RoomService(
         val owner = OwnerDto(userId, userRepository.findById(userId).get().name)
         val newRoom =
             Room(counter.counter, createRoomRequest.roomName, owner, createdAt = getCurrentTime())
-        return roomRepository.save(newRoom).toDto()
+        return roomRepository.save(newRoom)
+            .also {
+                mongoOperations.findAndModify(
+                    Query.query(Criteria.where("_id").`is`(userId)),
+                    Update().push("rooms", it.id),
+                    User::class.java,
+                    "user"
+                )
+            }.toDto()
     }
 
     private fun createNewCounter(): RoomCounter {
