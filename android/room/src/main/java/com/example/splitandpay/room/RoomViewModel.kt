@@ -6,6 +6,7 @@ import com.example.splitandpay.network.SplitAndPayApiService
 import com.example.splitandpay.network.model.ProductName
 import com.example.splitandpay.network.model.RoomDetails
 import com.example.splitandpay.room.models.ReceiptItem
+import com.example.splitandpay.room.models.User
 import com.example.splitandpay.user.UserDataHolder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,17 +24,45 @@ internal class RoomViewModel(
             ReceiptItem(
                 text = "Мясо",
                 amount = 1.0,
-                users = emptyList(),
+                users = listOf(
+                    User(
+                        id = "",
+                        username = "Андрей Остапчук",
+                        shortName = "АО",
+                    ),
+                ),
             ),
             ReceiptItem(
                 text = "Хлеб",
                 amount = 1.0,
-                users = emptyList(),
+                users = listOf(
+                    User(
+                        id = "",
+                        username = "Тимофей Плетнёв",
+                        shortName = "ТП",
+                    ),
+                ),
             ),
             ReceiptItem(
                 text = "Пиво",
                 amount = 1.0,
-                users = emptyList(),
+                users = listOf(
+                    User(
+                        id = "",
+                        username = "Андрей Остапчук",
+                        shortName = "АО",
+                    ),
+                    User(
+                        id = "",
+                        username = "Тимофей Плетнёв",
+                        shortName = "ТП",
+                    ),
+                    User(
+                        id = "",
+                        username = "Виктор Коротких",
+                        shortName = "ВК",
+                    ),
+                ),
             ),
             ReceiptItem(
                 text = "Мясо",
