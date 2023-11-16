@@ -1,7 +1,11 @@
 package com.example.splitandpay.backend.controller
 
 import com.example.splitandpay.backend.exception.ApiError
-import com.example.splitandpay.backend.model.dto.*
+import com.example.splitandpay.backend.model.dto.AddProductFromCheckRequest
+import com.example.splitandpay.backend.model.dto.AddProductRequest
+import com.example.splitandpay.backend.model.dto.AddUserToProduct
+import com.example.splitandpay.backend.model.dto.CreateRoomRequest
+import com.example.splitandpay.backend.model.dto.RoomDto
 import com.example.splitandpay.backend.service.RoomService
 import com.example.splitandpay.backend.utils.toObjectId
 import org.springframework.web.bind.annotation.GetMapping
