@@ -27,6 +27,7 @@
         <action
             android:id="@+id/action_roomFragment_to_createProductFragment"
             app:destination="@id/createProductFragment" />
+        <deepLink app:uri="android-app://splitandpay/roomFragment" />
     </fragment>
     <fragment
         android:id="@+id/startUserFragment"

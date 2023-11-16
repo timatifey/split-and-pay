@@ -3,13 +3,13 @@ package com.example.splitandpay.rooms
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.splitandpay.network.SplitAndPayApiService
+import com.example.splitandpay.room.RoomDataHolder
 import com.example.splitandpay.rooms.model.RoomsListItem
 import com.example.splitandpay.user.UserDataHolder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.Date
 
 internal class RoomsListViewModel constructor(
     private val userDataHolder: UserDataHolder,
@@ -35,7 +35,9 @@ internal class RoomsListViewModel constructor(
 
     fun onRoomsListEvent(event: RoomsListEvent) {
         when (event) {
-            is RoomsListEvent.OnRoomsItemClick -> {}
+            is RoomsListEvent.OnRoomsItemClick -> {
+                RoomDataHolder.roomId = event.roomId
+            }
             is RoomsListEvent.OnAddButtonClick -> {}
             is RoomsListEvent.OnRetryClick -> fetchRooms()
             is RoomsListEvent.OnPullToRefresh -> fetchRooms()
