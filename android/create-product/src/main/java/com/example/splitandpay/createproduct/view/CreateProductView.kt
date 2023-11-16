@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -12,6 +13,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.splitandpay.createproduct.CreateProductEvent
@@ -54,7 +56,8 @@ private fun InputContent(
         TextField(
             value = state.newProduct.amount.toString(),
             onValueChange = { onCreateProductEvent(CreateProductEvent.OnProductAmountFieldChange(it.toDoubleOrNull())) },
-            label = { Text("Amount") }
+            label = { Text("Amount") },
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
         )
         Spacer(modifier = Modifier.height(8.dp))
 

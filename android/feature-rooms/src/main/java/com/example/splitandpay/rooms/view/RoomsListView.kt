@@ -42,6 +42,7 @@ internal fun RoomsListView(
     username: String,
     onRoomsListEvent: (RoomsListEvent) -> Unit,
     onAddRoomClick: () -> Unit,
+    navigateToRoomScreen: () -> Unit,
 ) {
     val pullRefreshState = rememberPullRefreshState(
         refreshing = state is RoomsListState.Loading,
@@ -66,6 +67,7 @@ internal fun RoomsListView(
                     is RoomsListState.Content -> Content(
                         state = state,
                         onRoomsListEvent = onRoomsListEvent,
+                        navigateToRoomScreen = navigateToRoomScreen,
                     )
 
                     is RoomsListState.Error -> ErrorView(
@@ -103,6 +105,7 @@ private fun UserHeader(username: String) {
 private fun Content(
     state: RoomsListState.Content,
     onRoomsListEvent: (RoomsListEvent) -> Unit,
+    navigateToRoomScreen: () -> Unit,
 ) {
     Box(
         modifier = Modifier.padding(horizontal = 8.dp),
@@ -121,7 +124,10 @@ private fun Content(
                 items(state.items) {
                     RoomsItemView(
                         state = it,
-                        onClick = { onRoomsListEvent(RoomsListEvent.OnRoomsItemClick(it.id)) }
+                        onClick = {
+                            onRoomsListEvent(RoomsListEvent.OnRoomsItemClick(it.id))
+                            navigateToRoomScreen()
+                        }
                     )
                 }
             }
@@ -173,6 +179,7 @@ private fun RoomsListViewPreview() {
             username = "Алексей",
             onRoomsListEvent = {},
             onAddRoomClick = {},
+            navigateToRoomScreen = {},
         )
     }
 }
@@ -187,6 +194,7 @@ private fun RoomsListViewEmptyPreview() {
             username = "Алексей",
             onRoomsListEvent = {},
             onAddRoomClick = {},
+            navigateToRoomScreen = {},
         )
     }
 }

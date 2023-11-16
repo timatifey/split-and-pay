@@ -35,6 +35,7 @@ class RoomsListFragment : Fragment() {
                         username = viewModel.username,
                         onRoomsListEvent = viewModel::onRoomsListEvent,
                         onAddRoomClick = ::navigateToAddRoomScreen,
+                        navigateToRoomScreen = ::navigateToRoomScreen,
                     )
                 }
             }
@@ -49,6 +50,13 @@ class RoomsListFragment : Fragment() {
     private fun navigateToAddRoomScreen() {
         val request = NavDeepLinkRequest.Builder
             .fromUri("android-app://splitandpay/addRoomFragment".toUri())
+            .build()
+        navController.navigate(request)
+    }
+
+    private fun navigateToRoomScreen() {
+        val request = NavDeepLinkRequest.Builder
+            .fromUri("android-app://splitandpay/roomFragment".toUri())
             .build()
         navController.navigate(request)
     }

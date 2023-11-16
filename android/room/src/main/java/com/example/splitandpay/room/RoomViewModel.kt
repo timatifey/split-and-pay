@@ -6,7 +6,6 @@ import com.example.splitandpay.network.SplitAndPayApiService
 import com.example.splitandpay.network.model.RoomDetails
 import com.example.splitandpay.network.model.UserToProduct
 import com.example.splitandpay.room.models.ReceiptItem
-import com.example.splitandpay.room.models.User
 import com.example.splitandpay.user.UserDataHolder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +22,7 @@ internal class RoomViewModel(
         get() = _state
 
     private val userId: String
-        get() = "6555fdf106fdf7753ebaa443" // userDataHolder.userId!!
+        get() = userDataHolder.userId!!
 
     init {
         fetchRoom()
@@ -47,7 +46,7 @@ internal class RoomViewModel(
             val response = if (receiptItem.mainUser == null) {
                 apiService.addUserToProduct(
                     userId = userId,
-                    roomId = 1, // replace hardcode with args
+                    roomId = RoomDataHolder.roomId, // replace hardcode with args
                     userToProduct = UserToProduct(
                         productId = receiptItem.id,
                         userId = userId,
@@ -56,7 +55,7 @@ internal class RoomViewModel(
             } else {
                 apiService.deleteUserFromProduct(
                     userId = userId,
-                    roomId = 1, // replace hardcode with args
+                    roomId = RoomDataHolder.roomId, // replace hardcode with args
                     userToProduct = UserToProduct(
                         productId = receiptItem.id,
                         userId = userId,
@@ -81,7 +80,7 @@ internal class RoomViewModel(
         viewModelScope.launch {
             val response = apiService.getRoomDetails(
                 userId = userId,
-                roomId = 1, // replace hardcode with args
+                roomId = RoomDataHolder.roomId, // replace hardcode with args
             )
 
             if (!response.isSuccessful) {
