@@ -31,6 +31,7 @@ import com.example.splitandpay.uikit.theme.MyApplicationTheme
 internal fun RoomView(
     state: RoomState,
     onRoomEvent: OnRoomEvent,
+    onCreateNewProduct: () -> Unit
 ) {
     when (state) {
         is RoomState.Content -> Content(
@@ -44,6 +45,8 @@ internal fun RoomView(
         )
 
         RoomState.Loading -> Loading()
+
+        RoomState.CreateNewProduct -> onCreateNewProduct()
     }
 }
 
@@ -69,7 +72,7 @@ private fun Content(
             items(state.items) {
                 ReceiptItemView(
                     state = it,
-                    onClick = { onRoomEvent(RoomEvent.OnItemClick) }
+                    onClick = { onRoomEvent(RoomEvent.OnItemClick(it)) }
                 )
             }
         }
@@ -117,6 +120,7 @@ private fun RoomViewPreview() {
                 )
             ),
             onRoomEvent = {},
+            onCreateNewProduct = {}
         )
     }
 }

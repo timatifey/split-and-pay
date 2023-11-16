@@ -55,6 +55,7 @@ dependencies {
     implementation(project(":network"))
     implementation(project(":feature-user"))
     implementation(project(":feature-rooms"))
+    implementation(project(":create-product"))
 
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.fragment)

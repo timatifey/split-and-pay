@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.splitandpay.room"
+    namespace = "com.example.splitandpay.createproduct"
     compileSdk = 34
 
     defaultConfig {
@@ -31,10 +31,9 @@ dependencies {
     implementation(project(":network"))
     implementation(project(":feature-user"))
 
-    implementation(libs.androidx.fragment)
+    implementation(libs.material)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.navigation.fragment)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.compose.runtime)

@@ -105,7 +105,7 @@ internal class RoomViewModel(
         get() = userDataHolder.userId!!
 
     init {
-        fetchRoom()
+        //fetchRoom()
     }
 
     fun onReceiptEvent(roomEvent: RoomEvent) {
@@ -139,7 +139,7 @@ internal class RoomViewModel(
     }
 
     private fun onCreateReceiptItemClick() {
-        // TODO
+        _state.value = RoomState.CreateNewProduct
     }
 
     private fun fetchRoom() {
