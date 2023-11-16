@@ -4,13 +4,7 @@ import com.example.splitandpay.backend.exception.ApiError
 import com.example.splitandpay.backend.model.db.Product
 import com.example.splitandpay.backend.model.db.Room
 import com.example.splitandpay.backend.model.db.RoomCounter
-import com.example.splitandpay.backend.model.dto.AddProductRequest
-import com.example.splitandpay.backend.model.dto.AddUserToProduct
-import com.example.splitandpay.backend.model.dto.CreateRoomRequest
-import com.example.splitandpay.backend.model.dto.CreateRoomResponse
-import com.example.splitandpay.backend.model.dto.OwnerDto
-import com.example.splitandpay.backend.model.dto.ProductDto
-import com.example.splitandpay.backend.model.dto.RoomDto
+import com.example.splitandpay.backend.model.dto.*
 import com.example.splitandpay.backend.repository.RoomRepository
 import com.example.splitandpay.backend.repository.UserRepository
 import com.example.splitandpay.backend.service.check.ProverkaCheckaService
@@ -85,12 +79,16 @@ class RoomService(
         return room.toDto()
     }
 
-    fun addProductsFromCheck(userId: ObjectId, roomId: Long, checkData: String): RoomDto {
+    fun addProductsFromCheck(
+        userId: ObjectId,
+        roomId: Long,
+        addProductFromCheckRequest: AddProductFromCheckRequest
+    ): RoomDto {
         val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
         if (userId != room.owner.id && userId !in room.participants) {
             throw ApiError.AccessDenied
         }
-        val checkDto = proverkaCheckaService.sendCheck(checkData)
+        val checkDto = proverkaCheckaService.sendCheck(addProductFromCheckRequest.checkData)
         checkDto.data.json.items.forEach {
             room.products.add(Product(it.name, (it.sum).toDouble() / 100))
         }
