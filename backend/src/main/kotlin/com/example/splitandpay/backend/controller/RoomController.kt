@@ -6,6 +6,7 @@ import com.example.splitandpay.backend.model.dto.AddProductRequest
 import com.example.splitandpay.backend.model.dto.AddUserToProduct
 import com.example.splitandpay.backend.model.dto.CreateRoomRequest
 import com.example.splitandpay.backend.model.dto.RoomDto
+import com.example.splitandpay.backend.model.dto.TotalSumForUserDto
 import com.example.splitandpay.backend.service.RoomService
 import com.example.splitandpay.backend.utils.toObjectId
 import org.springframework.web.bind.annotation.GetMapping
@@ -85,4 +86,10 @@ class RoomController(
             throw ApiError.InvalidUserId(userId)
         }
     }
+
+    @GetMapping("/{roomId}/totalSumForUser")
+    fun getTotalSumForUser(@RequestHeader userId: String, @PathVariable roomId: Long): TotalSumForUserDto {
+        return roomService.countTotalSumForUser(userId.toObjectId(), roomId)
+    }
+
 }
