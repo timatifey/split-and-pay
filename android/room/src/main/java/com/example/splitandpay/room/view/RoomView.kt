@@ -46,7 +46,13 @@ internal fun RoomView(
 
         RoomState.Loading -> Loading()
 
-        RoomState.CreateNewProduct -> onCreateNewProduct()
+        RoomState.CreateNewProduct -> {
+            ErrorView(
+                text = "",
+                onClick = { onRoomEvent(RoomEvent.OnRetryClick) },
+            )
+            onCreateNewProduct()
+        }
     }
 }
 

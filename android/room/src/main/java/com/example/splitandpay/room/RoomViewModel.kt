@@ -7,6 +7,7 @@ import com.example.splitandpay.network.model.ProductName
 import com.example.splitandpay.network.model.RoomDetails
 import com.example.splitandpay.room.models.ReceiptItem
 import com.example.splitandpay.user.UserDataHolder
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

@@ -1,5 +1,6 @@
 package com.example.splitandpay.createproduct
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,9 @@ class CreateProductFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel.shouldDismiss.observe(this) {
+            if (it) dismiss()
+        }
         return ComposeView(requireContext()).apply {
             setContent {
                 MyApplicationTheme {

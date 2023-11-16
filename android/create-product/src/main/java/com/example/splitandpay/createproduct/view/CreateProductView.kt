@@ -58,9 +58,11 @@ private fun InputContent(
         )
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(onClick = {
-            onCreateProductEvent(CreateProductEvent.OnSubmitClick(state.newProduct))
-        }) {
+        Button(
+            onClick = {
+                onCreateProductEvent(CreateProductEvent.OnSubmitClick(state.newProduct))
+            }
+        ) {
             Text(text = "Submit")
         }
 

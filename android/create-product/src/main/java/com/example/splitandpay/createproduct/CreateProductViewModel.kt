@@ -1,5 +1,6 @@
 package com.example.splitandpay.createproduct
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.splitandpay.createproduct.models.NewProduct
@@ -16,6 +17,8 @@ internal class CreateProductViewModel(
 ) : ViewModel() {
 
     private var newProduct = NewProduct("", 1.0)
+
+    val shouldDismiss = MutableLiveData(false)
 
     private val _state: MutableStateFlow<CreateProductState> =
         MutableStateFlow(CreateProductState.Input(newProduct))
@@ -55,5 +58,7 @@ internal class CreateProductViewModel(
                 )
             )
         }
+
+        shouldDismiss.postValue(true)
     }
 }
