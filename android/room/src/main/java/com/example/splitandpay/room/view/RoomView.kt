@@ -111,16 +111,19 @@ private fun RoomViewPreview() {
                     ReceiptItem(
                         text = "Мясо",
                         amount = 1.0,
+                        mainUser = null,
                         users = emptyList(),
                     ),
                     ReceiptItem(
                         text = "Хлеб",
                         amount = 1.0,
+                        mainUser = null,
                         users = emptyList(),
                     ),
                     ReceiptItem(
                         text = "Пиво",
                         amount = 1.0,
+                        mainUser = null,
                         users = emptyList(),
                     ),
                 )
