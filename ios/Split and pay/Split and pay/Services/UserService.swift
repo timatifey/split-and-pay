@@ -9,20 +9,20 @@ import Foundation
 import Combine
 
 struct UserDTO: Codable {
-	let id: Int
+	let id: String
 }
 
 enum UserEndpoint: APIEndpoint {
 	case createUser(name: String)
 
 	var baseURL: URL {
-		return URL(string: "https://example.com/api")!
+		return URL(string: APIURL.apiURL)!
 	}
 
 	var path: String {
 		switch self {
 		case .createUser:
-			return "/user"
+			return "/user/"
 		}
 	}
 
@@ -36,7 +36,7 @@ enum UserEndpoint: APIEndpoint {
 	var headers: [String: String]? {
 		switch self {
 		case .createUser:
-			return [:]
+			return ["Content-Type": "application/json"]
 		}
 	}
 
@@ -60,7 +60,7 @@ class UserService: UserServiceProtocol {
 	private let keychainProvider = KeychainProvider()
 
 	func loadUser() -> UserDTO? {
-		guard let id = Int(keychainProvider.obtainAuthToken() ?? "") else { return nil }
+		guard let id = keychainProvider.obtainAuthToken() else { return nil }
 		return UserDTO(id: id)
 	}
 	

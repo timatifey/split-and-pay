@@ -41,12 +41,12 @@ class URLSessionAPIClient<EndpointType: APIEndpoint>: APIClient {
 		request.httpMethod = endpoint.method.rawValue
 
 		endpoint.headers?.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
-		// set up any other request parameters here
+		let jsonData = try? JSONSerialization.data(withJSONObject: endpoint.parameters as Any)
+		request.httpBody = jsonData
 
 		return URLSession.shared.dataTaskPublisher(for: request)
 			.subscribe(on: DispatchQueue.global(qos: .background))
 			.tryMap { data, response -> Data in
-
 				guard let httpResponse = response as? HTTPURLResponse,
 					  (200...299).contains(httpResponse.statusCode) else {
 					throw APIError.invalidResponse

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-struct RoomDTO: Codable {
+struct RoomDTO: Identifiable, Codable {
 	let id: Int
 	let name: String
 	let owner: OwnerDTO

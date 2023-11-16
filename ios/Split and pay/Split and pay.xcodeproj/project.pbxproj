@@ -22,6 +22,8 @@
 		A6E8F3112B04269F00AFAF2E /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3102B04269F00AFAF2E /* ViewExtensions.swift */; };
 		A6E8F3412B06398700AFAF2E /* RoomsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3402B06398700AFAF2E /* RoomsService.swift */; };
 		A6E8F3432B063B3200AFAF2E /* APIURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3422B063B3200AFAF2E /* APIURL.swift */; };
+		A6E8F3452B063FF500AFAF2E /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3442B063FF500AFAF2E /* RoomsViewModel.swift */; };
+		A6E8F3472B06569600AFAF2E /* RoomRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3462B06569600AFAF2E /* RoomRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,9 @@
 		A6E8F3102B04269F00AFAF2E /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		A6E8F3402B06398700AFAF2E /* RoomsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsService.swift; sourceTree = "<group>"; };
 		A6E8F3422B063B3200AFAF2E /* APIURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURL.swift; sourceTree = "<group>"; };
+		A6E8F3442B063FF500AFAF2E /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
+		A6E8F3462B06569600AFAF2E /* RoomRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRow.swift; sourceTree = "<group>"; };
+		A6E8F3482B066A1F00AFAF2E /* Split-and-pay-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Split-and-pay-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +78,7 @@
 		A6AB93BA2B03BB180075F5C9 /* Split and pay */ = {
 			isa = PBXGroup;
 			children = (
+				A6E8F3482B066A1F00AFAF2E /* Split-and-pay-Info.plist */,
 				A6AB93BB2B03BB180075F5C9 /* Split_and_payApp.swift */,
 				A6E8F33B2B06388100AFAF2E /* MainView */,
 				A6E8F33F2B0638FA00AFAF2E /* RoomsView */,
@@ -136,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				A6E8F30E2B04263400AFAF2E /* RoomsListView.swift */,
+				A6E8F3462B06569600AFAF2E /* RoomRow.swift */,
+				A6E8F3442B063FF500AFAF2E /* RoomsViewModel.swift */,
 			);
 			path = RoomsView;
 			sourceTree = "<group>";
@@ -219,6 +227,7 @@
 				A6E8F3432B063B3200AFAF2E /* APIURL.swift in Sources */,
 				A6E8F3412B06398700AFAF2E /* RoomsService.swift in Sources */,
 				A6E8F30D2B0425AE00AFAF2E /* MainView.swift in Sources */,
+				A6E8F3452B063FF500AFAF2E /* RoomsViewModel.swift in Sources */,
 				A6E8F3072B04188600AFAF2E /* UserService.swift in Sources */,
 				A6E8F30F2B04263400AFAF2E /* RoomsListView.swift in Sources */,
 				A6E8F2FF2B03C32300AFAF2E /* IntroduceView.swift in Sources */,
@@ -227,6 +236,7 @@
 				A6AB93BE2B03BB180075F5C9 /* ContentView.swift in Sources */,
 				A6E8F3012B0415AD00AFAF2E /* PressEffectButtonStyle.swift in Sources */,
 				A6AB93BC2B03BB180075F5C9 /* Split_and_payApp.swift in Sources */,
+				A6E8F3472B06569600AFAF2E /* RoomRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +368,7 @@
 				DEVELOPMENT_TEAM = 9N36M22CA6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Split-and-pay-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -386,6 +397,7 @@
 				DEVELOPMENT_TEAM = 9N36M22CA6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Split-and-pay-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
