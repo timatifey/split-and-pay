@@ -13,6 +13,10 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -63,15 +67,21 @@ internal fun RoomView(
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun Content(
     state: RoomState.Content,
     onRoomEvent: OnRoomEvent,
 ) {
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = false,
+        onRefresh = { onRoomEvent(RoomEvent.OnRetryClick) }
+    )
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 8.dp),
+            .padding(horizontal = 8.dp)
+            .pullRefresh(pullRefreshState),
     ) {
         LazyColumn(
             modifier = Modifier
@@ -132,6 +142,12 @@ private fun Content(
                 )
             }
         }
+
+        PullRefreshIndicator(
+            refreshing = false,
+            state = pullRefreshState,
+            modifier = Modifier.align(Alignment.TopCenter),
+        )
     }
 }
 
