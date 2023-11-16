@@ -3,13 +3,12 @@ package com.example.splitandpay.backend.controller
 import com.example.splitandpay.backend.exception.ApiError
 import com.example.splitandpay.backend.model.dto.AddProductFromCheckRequest
 import com.example.splitandpay.backend.model.dto.AddProductRequest
-import com.example.splitandpay.backend.model.dto.UserToProduct
 import com.example.splitandpay.backend.model.dto.CreateRoomRequest
 import com.example.splitandpay.backend.model.dto.RoomDto
 import com.example.splitandpay.backend.model.dto.TotalSumForUserDto
+import com.example.splitandpay.backend.model.dto.UserToProduct
 import com.example.splitandpay.backend.service.RoomService
 import com.example.splitandpay.backend.utils.toObjectId
-import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
