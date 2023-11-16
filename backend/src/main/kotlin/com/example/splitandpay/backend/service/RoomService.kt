@@ -26,6 +26,7 @@ import org.springframework.data.mongodb.core.query.Update
 import org.springframework.stereotype.Service
 import java.time.Clock
 import java.time.LocalDateTime
+import kotlin.math.roundToLong
 
 @Service
 class RoomService(
@@ -57,7 +58,7 @@ class RoomService(
         ) ?: createNewCounter()
         val owner = OwnerDto(userId, userRepository.findById(userId).get().name)
         val newRoom =
-            Room(counter.counter, createRoomRequest.roomName, owner, createdAt = getCurrentTime())
+            Room(counter.counter, createRoomRequest.name, owner, createdAt = getCurrentTime())
         return roomRepository.save(newRoom)
             .also {
                 mongoOperations.findAndModify(
@@ -66,7 +67,7 @@ class RoomService(
                     User::class.java,
                     "user"
                 )
-            }.toDto()
+            }.toDto(userId)
     }
 
     private fun createNewCounter(): RoomCounter {
@@ -91,9 +92,9 @@ class RoomService(
         }
     }
 
-    fun getRoom(roomId: Long): RoomDto {
+    fun getRoom(roomId: Long, userId: ObjectId): RoomDto {
         val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
-        return room.toDto()
+        return room.toDto(userId)
     }
 
     fun addProductsFromCheck(
@@ -110,7 +111,7 @@ class RoomService(
         checkDto.data.json.items.forEachIndexed { index, item ->
             room.products.add(Product(item.name, productsSize + index, (item.sum).toDouble() / 100))
         }
-        return roomRepository.save(room).toDto()
+        return roomRepository.save(room).toDto(userId)
     }
 
     fun addProduct(userId: ObjectId, roomId: Long, addProductRequest: AddProductRequest): RoomDto {
@@ -122,10 +123,10 @@ class RoomService(
             throw ApiError.ProductAlreadyAdded(addProductRequest.name, addProductRequest.amount)
         }
         room.products.add(Product(addProductRequest.name, room.products.size, addProductRequest.amount))
-        return roomRepository.save(room).toDto()
+        return roomRepository.save(room).toDto(userId)
     }
 
-    private fun Room.toDto(): RoomDto {
+    private fun Room.toDto(userId: ObjectId): RoomDto {
         return RoomDto(
             id = id,
             name = name,
@@ -138,17 +139,18 @@ class RoomService(
                     id = id,
                     amount = amount,
                     users = userRepository.findAllById(users).map { OwnerDto(it.id, it.name) })
-            }
+            },
+            totalSum = countTotalSumInternal(this, userId).total
         )
     }
 
     fun connectToRoom(userId: ObjectId, roomId: Long): RoomDto {
         val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
         if (userId in room.participants) {
-            return room.toDto()
+            return room.toDto(userId)
         }
         room.participants.add(userId)
-        return roomRepository.save(room).toDto()
+        return roomRepository.save(room).toDto(userId)
     }
 
     fun countTotalSumForUser(userId: ObjectId, roomId: Long): TotalSumForUserDto {
@@ -156,13 +158,23 @@ class RoomService(
         if (userId != room.owner.id && userId !in room.participants) {
             throw ApiError.AccessDenied
         }
+        return countTotalSumInternal(room, userId)
+    }
+
+    private fun countTotalSumInternal(room: Room, userId: ObjectId): TotalSumForUserDto {
         var total = 0.0
         val perProduct = room.products.filter { it.users.contains(userId) }
             .map { product ->
                 SumPerProductDto(product.id, product.name, product.amount / product.users.size)
                     .also { total += it.sum }
             }
-        return TotalSumForUserDto(userId, total, perProduct)
+        return TotalSumForUserDto(userId, total.round(2), perProduct)
+    }
+
+    fun Double.round(decimals: Int): Double {
+        var multiplier = 1.0
+        repeat(decimals) { multiplier *= 10 }
+        return (this * multiplier).roundToLong() / multiplier
     }
 
     fun addOrDeleteUserToProductMapping(
@@ -185,6 +197,6 @@ class RoomService(
         } else {
             product.users.remove(userToProduct.userId)
         }
-        return roomRepository.save(room).toDto()
+        return roomRepository.save(room).toDto(userId)
     }
 }

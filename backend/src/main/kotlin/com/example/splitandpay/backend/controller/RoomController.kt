@@ -25,9 +25,10 @@ class RoomController(
 ) {
     @GetMapping("/{roomId}")
     fun getRoom(
+        @RequestHeader userId: String,
         @PathVariable roomId: Long
     ): RoomDto {
-        return roomService.getRoom(roomId)
+        return roomService.getRoom(roomId, userId.toObjectId())
     }
 
     @GetMapping("/{roomId}/connect")

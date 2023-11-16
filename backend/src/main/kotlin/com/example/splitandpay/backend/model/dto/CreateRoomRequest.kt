@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CreateRoomRequest(
-    val roomName: String
+    val name: String
 )
