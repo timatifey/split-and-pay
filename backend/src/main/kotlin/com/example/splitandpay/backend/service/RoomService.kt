@@ -12,6 +12,8 @@ import com.example.splitandpay.backend.model.dto.CreateRoomRequest
 import com.example.splitandpay.backend.model.dto.OwnerDto
 import com.example.splitandpay.backend.model.dto.ProductDto
 import com.example.splitandpay.backend.model.dto.RoomDto
+import com.example.splitandpay.backend.model.dto.SumPerProductDto
+import com.example.splitandpay.backend.model.dto.TotalSumForUserDto
 import com.example.splitandpay.backend.repository.RoomRepository
 import com.example.splitandpay.backend.repository.UserRepository
 import com.example.splitandpay.backend.service.check.ProverkaCheckaService
@@ -161,5 +163,19 @@ class RoomService(
         }
         room.participants.add(userId)
         return roomRepository.save(room).toDto()
+    }
+
+    fun countTotalSumForUser(userId: ObjectId, roomId: Long): TotalSumForUserDto {
+        val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
+        if (userId != room.owner.id && userId !in room.participants) {
+            throw ApiError.AccessDenied
+        }
+        var total = 0.0
+        val perProduct = room.products.filter { it.users.contains(userId) }
+            .map { product ->
+                SumPerProductDto(product.id, product.name, product.amount / product.users.size)
+                    .also { total += it.sum }
+            }
+        return TotalSumForUserDto(userId, total, perProduct)
     }
 }
