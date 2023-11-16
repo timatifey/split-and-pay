@@ -3,8 +3,8 @@ package com.example.splitandpay.room
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.splitandpay.network.SplitAndPayApiService
-import com.example.splitandpay.network.model.UserToProduct
 import com.example.splitandpay.network.model.RoomDetails
+import com.example.splitandpay.network.model.UserToProduct
 import com.example.splitandpay.room.models.ReceiptItem
 import com.example.splitandpay.room.models.User
 import com.example.splitandpay.user.UserDataHolder
@@ -21,19 +21,19 @@ internal class RoomViewModel(
     private val mockState = RoomState.Content(
         items = listOf(
             ReceiptItem(
-                text = "Мясо",
+                text = "Мясо, Мясо, Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо Мясо МясоМясо Мясо МясоМясо ",
                 amount = 1.0,
-                users = listOf(
-                    User(
-                        id = "",
-                        username = "Андрей Остапчук",
-                        shortName = "АО",
-                    ),
+                mainUser = User(
+                    id = "1",
+                    username = "Андрей Остапчук",
+                    shortName = "АО",
                 ),
+                users = emptyList(),
             ),
             ReceiptItem(
                 text = "Хлеб",
                 amount = 1.0,
+                mainUser = null,
                 users = listOf(
                     User(
                         id = "",
@@ -45,12 +45,12 @@ internal class RoomViewModel(
             ReceiptItem(
                 text = "Пиво",
                 amount = 1.0,
+                mainUser = User(
+                    id = "1",
+                    username = "Андрей Остапчук",
+                    shortName = "АО",
+                ),
                 users = listOf(
-                    User(
-                        id = "",
-                        username = "Андрей Остапчук",
-                        shortName = "АО",
-                    ),
                     User(
                         id = "",
                         username = "Тимофей Плетнёв",
@@ -66,61 +66,73 @@ internal class RoomViewModel(
             ReceiptItem(
                 text = "Мясо",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Хлеб",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Пиво",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Мясо",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Хлеб",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Пиво",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Мясо",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Хлеб",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Пиво",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Мясо",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Хлеб",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
             ReceiptItem(
                 text = "Пиво",
                 amount = 1.0,
+                mainUser = null,
                 users = emptyList(),
             ),
         )
@@ -196,7 +208,9 @@ internal class RoomViewModel(
 
     private fun setContent(roomDetails: RoomDetails) {
         _state.value = RoomState.Content(
-            items = roomDetails.receipt.map(roomModelMapper::mapReceiptItem)
+            items = roomDetails.receipt.map {
+                roomModelMapper.mapReceiptItem(mainUser = userId, it)
+            }
         )
     }
 }

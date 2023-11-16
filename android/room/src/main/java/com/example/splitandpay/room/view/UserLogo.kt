@@ -19,11 +19,13 @@ import com.example.splitandpay.uikit.theme.MyApplicationTheme
 @Composable
 internal fun UserLogo(
     text: String,
+    isMain: Boolean = false,
 ) {
+    val background = if (isMain) Color.Yellow else Color.White
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(1000.dp))
-            .background(Color.White)
+            .background(background)
             .size(40.dp),
         contentAlignment = Alignment.Center,
     ) {
