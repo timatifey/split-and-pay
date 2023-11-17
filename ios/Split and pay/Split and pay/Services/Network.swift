@@ -57,10 +57,12 @@ class URLSessionAPIClient<EndpointType: APIEndpoint>: APIClient {
 		return URLSession.shared.dataTaskPublisher(for: request)
 			.subscribe(on: DispatchQueue.global(qos: .background))
 			.tryMap { data, response -> Data in
+				print(response)
 				guard let httpResponse = response as? HTTPURLResponse,
 					  (200...299).contains(httpResponse.statusCode) else {
 					throw APIError.invalidResponse
 				}
+				print(String(data: data, encoding: .utf8))
 				return data
 			}
 			.decode(type: T.self, decoder: JSONDecoder())

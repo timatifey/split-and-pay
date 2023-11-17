@@ -15,6 +15,21 @@ struct RoomDTO: Identifiable, Codable {
 	let createdAt: String
 }
 
+struct RoomDetailedDTO: Identifiable, Codable {
+	let id: Int
+	let name, createdAt: String
+	let owner: OwnerDTO
+	let users: [OwnerDTO]
+	let receipt: [ReceiptDTO]
+	let totalSum: Double
+}
+
+struct ReceiptDTO: Identifiable, Codable {
+	let name: String
+	let id, amount: Int
+	let users: [OwnerDTO]
+}
+
 struct OwnerDTO: Codable {
 	let id, username, shortName: String
 }
@@ -72,7 +87,7 @@ enum RoomEndpoint: APIEndpoint {
 protocol RoomServiceProtocol {
 	func createRoom(name: String) -> AnyPublisher<RoomDTO, Error>
 	func getRooms() -> AnyPublisher<[RoomDTO], Error>
-	func getRoom(id: Int) -> AnyPublisher<RoomDTO, Error>
+	func loadRoom(id: Int) -> AnyPublisher<RoomDetailedDTO, Error>
 }
 
 class RoomsService: RoomServiceProtocol {
@@ -86,7 +101,7 @@ class RoomsService: RoomServiceProtocol {
 		return apiClient.request(.getRooms)
 	}
 	
-	func getRoom(id: Int) -> AnyPublisher<RoomDTO, Error> {
+	func loadRoom(id: Int) -> AnyPublisher<RoomDetailedDTO, Error> {
 		return apiClient.request(.getRoom(id: id))
 	}
 }

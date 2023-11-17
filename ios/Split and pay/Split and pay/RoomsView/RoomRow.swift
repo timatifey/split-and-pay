@@ -25,6 +25,7 @@ struct RoomRow: View {
 				HStack {
 					Text(parseDate(originDate: room.createdAt))
 						.font(Font.system(size: 16, weight: .regular))
+						.foregroundStyle(Color.black)
 					Spacer()
 				}
 			}
@@ -34,7 +35,7 @@ struct RoomRow: View {
 			ZStack {
 				Circle()
 					.foregroundColor(Color(red: 0.27, green: 0.35, blue: 0.96))
-				Text("F F")
+				Text(room.owner.shortName)
 					.foregroundStyle(Color.white)
 			}
 			.frame(height: 50)
