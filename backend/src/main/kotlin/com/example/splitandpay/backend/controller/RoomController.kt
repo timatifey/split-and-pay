@@ -9,6 +9,7 @@ import com.example.splitandpay.backend.model.dto.TotalSumForUserDto
 import com.example.splitandpay.backend.model.dto.UserToProduct
 import com.example.splitandpay.backend.service.RoomService
 import com.example.splitandpay.backend.utils.toObjectId
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -36,6 +37,14 @@ class RoomController(
         @PathVariable roomId: Long
     ): RoomDto {
         return roomService.connectToRoom(userId.toObjectId(), roomId)
+    }
+
+    @DeleteMapping("/{roomId}/disconnect")
+    fun deleteRoom(
+        @RequestHeader userId: String,
+        @PathVariable roomId: Long
+    ): List<RoomDto> {
+        return roomService.deleteRoom(userId.toObjectId(), roomId)
     }
 
     @PostMapping("/{roomId}/addProduct")

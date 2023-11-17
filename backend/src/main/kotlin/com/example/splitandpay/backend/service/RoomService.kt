@@ -81,8 +81,8 @@ class RoomService(
         return LocalDateTime.now(Clock.systemUTC())
     }
 
-    fun getRooms(ownerId: ObjectId): List<RoomDto> {
-        return roomRepository.findAllByParticipantsContaining(ownerId).map {
+    fun getRooms(partipiciantId: ObjectId): List<RoomDto> {
+        return roomRepository.findAllByParticipantsContaining(partipiciantId).map {
             RoomDto(
                 it.id,
                 it.name,
@@ -198,5 +198,20 @@ class RoomService(
             product.users.remove(userToProduct.userId)
         }
         return roomRepository.save(room).toDto(userId)
+    }
+
+    fun deleteRoom(userId: ObjectId, roomId: Long): List<RoomDto> {
+        val room = roomRepository.findById(roomId).orElseThrow { ApiError.RoomNotFound(roomId) }
+        if (userId !in room.participants) {
+            throw ApiError.AccessDenied
+        }
+        room.participants.remove(userId)
+        room.products.forEach {
+            if (userId in it.users) {
+                it.users.remove(userId)
+            }
+        }
+        roomRepository.save(room)
+        return getRooms(userId)
     }
 }
