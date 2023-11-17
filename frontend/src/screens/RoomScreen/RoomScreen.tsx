@@ -6,7 +6,6 @@ import RoomDto from "../../model/RoomDto";
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import {Tooltip} from "react-tooltip";
-import {Simulate} from "react-dom/test-utils";
 
 
 export const RoomScreen = () => {
@@ -40,7 +39,7 @@ export const RoomScreen = () => {
                 navigate('/home')
                 return
             }
-            roomService.getRoom(roomId!).then(r => {
+            roomService.getRoom(roomId).then(r => {
                 setRoom(r.data)
             }, (error) => {
                 navigate('/home')
