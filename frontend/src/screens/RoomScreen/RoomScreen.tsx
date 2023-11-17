@@ -107,7 +107,7 @@ export const RoomScreen = () => {
                                             {productDto.users.map((userDto, i) => (
                                                 <div key={i}>
                                                     <Avatar data-tooltip-id={`user-tooltip-${i}`}
-                                                            sx={{bgcolor: "#" + Math.random().toString(16).substring(-6)}}>
+                                                            sx={{bgcolor: "#" + Math.random().toString(16).substring(9)}}>
                                                         {userDto.shortName}
                                                     </Avatar>
                                                     <Tooltip
