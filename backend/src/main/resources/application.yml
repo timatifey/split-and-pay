@@ -7,7 +7,7 @@ spring:
     name: split-and-pay-backend-service
   data:
     mongodb:
-      uri: mongodb://localhost:27018/split-and-pay
+      uri: mongodb://localhost:27017/split-and-pay
       auto-index-creation: true
 
 proverka.cheka.token: 24687.nXWbO7tBku60RwVnm
