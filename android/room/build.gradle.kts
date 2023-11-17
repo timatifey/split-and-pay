@@ -44,4 +44,5 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     implementation(libs.koin.android)
+    implementation(libs.code.scanner)
 }

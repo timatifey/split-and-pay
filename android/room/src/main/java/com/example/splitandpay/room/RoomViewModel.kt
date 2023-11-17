@@ -3,6 +3,7 @@ package com.example.splitandpay.room
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.splitandpay.network.SplitAndPayApiService
+import com.example.splitandpay.network.model.CheckData
 import com.example.splitandpay.network.model.RoomDetails
 import com.example.splitandpay.network.model.UserToProduct
 import com.example.splitandpay.room.models.ReceiptItem
@@ -33,6 +34,24 @@ internal class RoomViewModel(
             RoomEvent.OnRetryClick -> onRetryClick()
             is RoomEvent.OnItemClick -> onItemClick(roomEvent.receiptItem)
             RoomEvent.CreateReceiptItem -> onCreateReceiptItemClick()
+            is RoomEvent.OnQrCodeScan -> onQrCodeScan(roomEvent.data)
+        }
+    }
+
+    private fun onQrCodeScan(data: String) {
+        viewModelScope.launch {
+            val response = apiService.addProductFromCheck(
+                userId = userId,
+                roomId = RoomDataHolder.roomId,
+                checkData = CheckData(data),
+            )
+
+            if (!response.isSuccessful) {
+                setError(response.message())
+                return@launch
+            }
+
+            setContent(response.body()!!)
         }
     }
 
