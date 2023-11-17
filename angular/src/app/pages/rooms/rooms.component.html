@@ -1,0 +1,62 @@
+
+
+<div class="row mt-5">
+  <div class="offset-9 col-3">
+    <div class="d-grid gap-2 mx-auto">
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createRoomModal">
+        Создать комнату
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Room Modal -->
+<div class="modal fade" id="createRoomModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createRoomForm" (ngSubmit)="createRoom()" id="createRoomForm">
+          <label for="roomName" class="form-label">Название комнаты</label>
+          <input class="form-control" id="roomName" placeholder="Название" formControlName="roomName">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="submit" class="btn btn-primary" form="createRoomForm" data-bs-dismiss="modal">Создать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form class="row mt-2" [formGroup]="incomeRoomForm" (ngSubmit)="incomeRoom()">
+  <div class="offset-6 col-3">
+    <input class="form-control" id="roomId" placeholder="Номер" formControlName="roomId">
+  </div>
+  <div class="col-3">
+    <div class="d-grid gap-2 mx-auto">
+      <button type="submit" class="btn btn-outline-primary">Присоединиться</button>
+    </div>
+  </div>
+</form>
+
+<div *ngFor="let room of rooms" class="row mt-4">
+  <div class="col">
+    <div class="card mb-2 " (click)="goToRoom(room.id)">
+      <div class="card-body">
+        <div class="card-title">
+          <h3>{{room.name}}</h3>
+          <h5>Владелец: {{room.owner?.username}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="rooms.length == 0">
+  empty
+</div>
+

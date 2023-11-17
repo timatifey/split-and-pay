@@ -1,0 +1,94 @@
+<div class="row mt-5">
+  <nav aria-label="breadcrumb mt-5">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/rooms">rooms</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{room?.name}}</li>
+    </ol>
+  </nav>
+</div>
+<div class="row mt-2">
+  <div class="col-8">
+    <h1>
+      {{room?.name}}
+    </h1>
+    <h5>
+      Сколько я должен: {{room?.totalSum}}
+    </h5>
+  </div>
+</div>
+<div class="row">
+  <div class="offset-8 col-4">
+    <div class="d-grid gap-2 mx-auto">
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createProduct">
+        Добавить позицию
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Product Modal -->
+<div class="modal fade" id="createProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addProductForm" [formGroup]="addProductForm" (ngSubmit)="addProduct()">
+          <label for="productName" class="form-label">Название продукта</label>
+          <input class="form-control" id="productName" placeholder="Название" formControlName="productName">
+          <label for="productAmount" class="form-label mt-3">Стоимость продукта</label>
+          <input class="form-control" type="number" id="productAmount" placeholder="Название"
+                 formControlName="productAmount">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="submit" class="btn btn-primary" form="addProductForm" data-bs-dismiss="modal">Добавить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngFor="let product of room?.receipt" class="row mt-4">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-text">
+          <div class="container">
+            <div class="row">
+              <div class="col-4">
+                <h3>{{product.name}}</h3>
+                <h5>Стоимость: {{product.amount}}</h5>
+              </div>
+              <div class="col-4">
+                <div class="btn-group">
+                  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                    Платят: {{product.users?.length}}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <div *ngFor="let user of product.users">
+                      <li>
+                        <div class="dropdown-item">{{user.username}}</div>
+                      </li>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="d-grid gap-2 mx-auto">
+                  <button type="button" class="btn btn-outline-primary" (click)="addToProductMe(product.id)">
+                    Добавить себя
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

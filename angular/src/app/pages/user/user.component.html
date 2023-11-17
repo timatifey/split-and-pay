@@ -1,0 +1,12 @@
+
+<div class="h-100 row align-items-center">
+  <div class="offset-3 col-6">
+    <form [formGroup]="signInForm" (ngSubmit)="login()">
+      <label for="username" class="form-label">Ваше имя</label>
+      <input type="email" class="form-control" id="username" placeholder="Имя" formControlName="username">
+      <div class="d-flex justify-content-center mt-5">
+        <button class="btn btn-outline-primary" type="submit">Начать</button>
+      </div>
+    </form>
+  </div>
+</div>
