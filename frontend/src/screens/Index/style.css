@@ -64,19 +64,7 @@
     width: 100%;
 }
 
-.frame .text-wrapper {
-    color: var(--text-color);
-    font-family: "Sansation-Regular", Helvetica;
-    font-size: 40px;
-    font-weight: 400;
-    height: 45px;
-    left: 787px;
-    letter-spacing: 0.31px;
-    line-height: normal;
-    position: absolute;
-    top: 12px;
-    white-space: nowrap;
-}
+
 
 .frame .form-group-1 {
     left: 735px !important;

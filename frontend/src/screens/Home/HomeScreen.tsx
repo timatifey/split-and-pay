@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import "./style.css";
-import {FormInput} from "../../components/FormInput/FormInput";
-import {ListItem} from "../../components/ListItem/ListItem";
 import {useNavigate} from "react-router-dom";
 import roomService from "../../service/RoomService";
 import RoomDto from "../../model/RoomDto";
@@ -10,15 +8,36 @@ export const HomeScreen = () => {
     const [rooms, setRooms] = useState<Array<RoomDto>>([])
     let navigate = useNavigate()
 
+    const [roomNumber, setRoomNumber] = useState("")
+    const [invalidRoomNumber, setInvalidRoomNumber] = useState(false)
+    const [roomName, setRoomName] = useState("")
+    const [invalidName, setInvalidName] = useState(false)
+
+
     useEffect(() => {
         if (localStorage.getItem('userId') == null) {
             navigate('/')
         } else {
+            localStorage.setItem('userId', localStorage.getItem('userId')!)
             roomService.getRooms().then(r => {
                 setRooms(r.data)
+            }, (error) => {
+                alert(error.response.data.message)
             })
         }
     }, [navigate]);
+
+    const onChangeRoomNumber = (e: ChangeEvent<HTMLInputElement>) => {
+        const searchFileNameValue = e.target.value;
+        setInvalidRoomNumber(searchFileNameValue === '')
+        setRoomNumber(e.target.value)
+    };
+
+    const onChangeRoomName = (e: ChangeEvent<HTMLInputElement>) => {
+        const searchFileNameValue = e.target.value;
+        setInvalidRoomNumber(searchFileNameValue === '')
+        setRoomName(e.target.value)
+    };
 
     return (
         <div className="frame">
@@ -29,59 +48,88 @@ export const HomeScreen = () => {
                     <img
                         className="topcoat-next-light"
                         alt="Topcoat next light"
-                        src="https://c.animaapp.com/enS2D4jy/img/topcoat-next-light.svg"
+                        src="/img/arrow.svg"
                     />
                 </div>
                 <div className="h-3">Ваши комнаты:</div>
                 <div className="h-4">
-                    Привет, {localStorage.getItem('userId')}!
+                    Привет, {localStorage.getItem('userName')}!
                 </div>
                 <div className="list-item list-item-5">
-                    {rooms.map(roomDto =>
-                        (<div className="room-div">
-                            <img className="line" alt="Line" src="https://c.animaapp.com/bpMu8hJi/img/line-4-1.svg"/>
-                            <div className="h">{roomDto.name}</div>
-                            <div className="div-wrapper list-item-instance">
-                                <div className="text-wrapper">3 days ago</div>
+                    {rooms.map((roomDto, i) =>
+                        (<div className="room-div" key={i}>
+                            <div className="room-name">{roomDto.name}#{roomDto.id}</div>
+                            <div className="room-manage-buttons">
+                                <button className="btn-square btn-21" onClick={() => {
+                                    navigate(`/room/${roomDto.id}`)
+                                }}>
+                                    <div className="btn-text">Открыть</div>
+                                </button>
+                                <button className="btn-square btn-22" onClick={() => {
+                                    roomService.deleteRoom(roomDto.id).then(r => {
+                                        setRooms(r.data)
+                                    }, (error) => {
+                                        alert(error.response.data.message)
+                                    })
+                                }}>
+                                    <div className="btn-text">Удалить</div>
+                                </button>
                             </div>
-                            <p className="paragraph list-item-5-instance">
+                            <div className="paragraph list-item-5-instance">
                                 owner: {roomDto.owner.username}
-                            </p>
+                            </div>
+                            <div className="paragraph list-item-5-instance">
+                                createdAt: {new Date(roomDto.createdAt + "Z").toISOString().replace("Z", "")}
+                            </div>
                         </div>)
                     )}
                 </div>
-                <ListItem
-                    className="list-item-5"
-                    frameClassName="list-item-instance"
-                    frameClassNameOverride="design-component-instance-node"
-                    hasFrame={false}
-                    paragraphClassName="list-item-5-instance"
-                    text="Room#2"
-                    text1={
-                        <>
-                            owner: Плетнев Тимофей
-                            <br/>
-                            totalReceipt: 500.0
-                        </>
-                    }
-                    text2={
-                        <>
-                            owner: Плетнев Тимофей
-                            <br/>
-                            totalReceipt: 500.0
-                        </>
-                    }
-                />
                 <div className="div-3">
                     <div className="room-buttons">
-                        <button className="btn-square btn-19">
-                            <div className="btn-text">"Создать новую"</div>
+                        <button className="btn-square btn-19" onClick={() => {
+                            if (roomNumber === '') {
+                                setInvalidRoomNumber(true)
+                                return
+                            }
+                            roomService.connectToRoom(roomNumber).then(r => {
+                                let newRooms = Array.from(rooms)
+                                newRooms.push(r.data)
+                                setRooms(newRooms)
+                            }, (error) => {
+                                alert(error.response.data.message)
+                            })
+                        }}>
+                            <div className="btn-text">Присоединиться</div>
                         </button>
-                        <button className="btn-square btn-20">
-                            <div className="btn-text">"Присоедениться"</div>
+                        <button className="btn-square btn-20" onClick={() => {
+                            if (roomName === '') {
+                                setInvalidName(true)
+                                return
+                            }
+                            roomService.createNew(roomName).then(r => {
+                                let newRooms = Array.from(rooms)
+                                newRooms.push(r.data)
+                                setRooms(newRooms)
+                            }, (error) => {
+                                alert(error.response.data.message)
+                            })
+                        }}>
+                            <div className="btn-text">Создать новую</div>
                         </button>
                     </div>
-                    <FormInput className="form-input-14" text="Номер комнаты*"/>
+                    <div className="form-input form-input-14">
+                        <div className="input-form-control">
+                            <input className="email" type="number" placeholder="Номер комнаты*"
+                                   onChange={onChangeRoomNumber}
+                                   value={roomNumber}/>
+                        </div>
+                        <div className="input-form-control input-form-control-2">
+                            <input className="email" placeholder="Имя комнаты*"
+                                   style={{borderColor: invalidName ? "#f30e0e" : "#e6e6e6"}}
+                                   onChange={onChangeRoomName}
+                                   value={roomName}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

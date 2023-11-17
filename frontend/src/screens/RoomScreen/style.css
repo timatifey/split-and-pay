@@ -81,6 +81,38 @@
     white-space: nowrap;
 }
 
+.frame .h-totalsum {
+    color: var(--text-color);
+    font-family: var(--h-3-font-family);
+    font-size: var(--h-3-font-size);
+    font-style: var(--h-3-font-style);
+    font-weight: var(--h-3-font-weight);
+    left: 98px;
+    letter-spacing: var(--h-3-letter-spacing);
+    line-height: var(--h-3-line-height);
+    position: absolute;
+    text-align: center;
+    top: calc(15% + 32px);
+    white-space: nowrap;
+}
+
+.frame .h-empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    color: var(--text-color);
+    font-family: var(--h-3-font-family);
+    font-size: var(--h-3-font-size);
+    font-style: var(--h-3-font-style);
+    font-weight: var(--h-3-font-weight);
+    letter-spacing: var(--h-3-letter-spacing);
+    line-height: var(--h-3-line-height);
+    text-align: center;
+    white-space: nowrap;
+}
+
 .frame .h-4 {
     color: var(--text-color);
     font-family: var(--h-3-font-family);
@@ -188,7 +220,7 @@
     width: 212px;
 }
 
-.form-input-14 .input-form-control-2 {
+.form-input-15 .input-form-control-2 {
     margin-top: 10%;
 }
 
@@ -216,7 +248,7 @@
     white-space: nowrap;
 }
 
-.frame .form-input-14 {
+.frame .form-input-15 {
     left: -12%;
     position: absolute !important;
     top: 0 !important;
