@@ -1,0 +1,1 @@
+export { IndexScreen } from "./IndexScreen";

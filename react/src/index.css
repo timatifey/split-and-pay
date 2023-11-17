@@ -1,0 +1,100 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:root {
+  --accentued-drop-shadow: 0px 13px 19px 0px rgba(0, 0, 0, 0.07);
+  --alert-color: rgba(231, 124, 64, 1);
+  --btn-text-font-family: "Montserrat-Bold", Helvetica;
+  --btn-text-font-size: 14px;
+  --btn-text-font-style: normal;
+  --btn-text-font-weight: 700;
+  --btn-text-letter-spacing: 0.20000000298023224px;
+  --btn-text-line-height: 22px;
+  --danger-color: rgba(231, 64, 64, 1);
+  --dark-background-color: rgba(37, 43, 66, 1);
+  --disabled-element-color: rgba(142, 194, 242, 1);
+  --h-1-font-family: "Montserrat-ExtraBold", Helvetica;
+  --h-1-font-size: 58px;
+  --h-1-font-style: normal;
+  --h-1-font-weight: 800;
+  --h-1-letter-spacing: 0.20000000298023224px;
+  --h-1-line-height: 80px;
+  --h-2-font-family: "Montserrat-Bold", Helvetica;
+  --h-2-font-size: 40px;
+  --h-2-font-style: normal;
+  --h-2-font-weight: 700;
+  --h-2-letter-spacing: 0.20000000298023224px;
+  --h-2-line-height: 57px;
+  --h-3-font-family: "Montserrat-Bold", Helvetica;
+  --h-3-font-size: 24px;
+  --h-3-font-style: normal;
+  --h-3-font-weight: 700;
+  --h-3-letter-spacing: 0.10000000149011612px;
+  --h-3-line-height: 32px;
+  --h-4-font-family: "Montserrat-Medium", Helvetica;
+  --h-4-font-size: 20px;
+  --h-4-font-style: normal;
+  --h-4-font-weight: 500;
+  --h-4-letter-spacing: 0.20000000298023224px;
+  --h-4-line-height: 30px;
+  --h-5-font-family: "Montserrat-Bold", Helvetica;
+  --h-5-font-size: 16px;
+  --h-5-font-style: normal;
+  --h-5-font-weight: 700;
+  --h-5-letter-spacing: 0.10000000149011612px;
+  --h-5-line-height: 24px;
+  --h-6-font-family: "Montserrat-SemiBold", Helvetica;
+  --h-6-font-size: 14px;
+  --h-6-font-style: normal;
+  --h-6-font-weight: 600;
+  --h-6-letter-spacing: 0.20000000298023224px;
+  --h-6-line-height: 24px;
+  --hover-color: rgba(42, 124, 199, 1);
+  --light-background-color: rgba(255, 255, 255, 1);
+  --light-dropshadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  --light-text-color: rgba(255, 255, 255, 1);
+  --link-font-family: "Montserrat-SemiBold", Helvetica;
+  --link-font-size: 14px;
+  --link-font-style: normal;
+  --link-font-weight: 600;
+  --link-letter-spacing: 0.20000000298023224px;
+  --link-line-height: 24px;
+  --list-font-family: "Montserrat-Regular", Helvetica;
+  --list-font-size: 20px;
+  --list-font-style: normal;
+  --list-font-weight: 400;
+  --list-letter-spacing: 0.20000000298023224px;
+  --list-line-height: 30px;
+  --mobile-menu-font-family: "Montserrat-Regular", Helvetica;
+  --mobile-menu-font-size: 30px;
+  --mobile-menu-font-style: normal;
+  --mobile-menu-font-weight: 400;
+  --mobile-menu-letter-spacing: 0.20000000298023224px;
+  --mobile-menu-line-height: 45px;
+  --muted-color: rgba(189, 189, 189, 1);
+  --paragraph-font-family: "Montserrat-Medium", Helvetica;
+  --paragraph-font-size: 16px;
+  --paragraph-font-style: normal;
+  --paragraph-font-weight: 500;
+  --paragraph-letter-spacing: 0.20000000298023224px;
+  --paragraph-line-height: 26px;
+  --primary-color: rgba(35, 166, 240, 1);
+  --second-text-color: rgba(115, 115, 115, 1);
+  --secondary-color-1: rgba(64, 187, 21, 1);
+  --secondary-color-2: rgba(60, 64, 61, 1);
+  --success-color: rgba(45, 192, 113, 1);
+  --text-color: rgba(37, 43, 66, 1);
+  --text-shadow: 0px 13px 19px 0px rgba(0, 0, 0, 0.24);
+}
+

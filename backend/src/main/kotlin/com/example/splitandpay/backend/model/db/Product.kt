@@ -9,5 +9,5 @@ data class Product(
     val name: String,
     val id: Int,
     val amount: Double,
-    val users: MutableList<@Serializable(with = ObjectIdSerializer::class) ObjectId> = mutableListOf()
+    val users: MutableSet<@Serializable(with = ObjectIdSerializer::class) ObjectId> = mutableSetOf()
 )

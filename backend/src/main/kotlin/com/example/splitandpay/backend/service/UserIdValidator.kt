@@ -7,11 +7,11 @@ import com.example.splitandpay.backend.utils.toObjectId
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletRequest
 import jakarta.servlet.ServletResponse
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
-import org.apache.catalina.connector.RequestFacade
-import org.apache.catalina.connector.ResponseFacade
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.GenericFilterBean
 
@@ -21,8 +21,8 @@ class UserIdValidator(
 ) : GenericFilterBean() {
     @OptIn(ExperimentalSerializationApi::class)
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
-        (request as RequestFacade)
-        if (request.servletPath.endsWith("/api/user/") && request.method == "POST"
+        request as HttpServletRequest
+        if (request.servletPath.endsWith("/api/user/") && (request.method == "POST" || request.method == "OPTIONS")
             || request.servletPath.endsWith("/api/misc/randomName")
         ) {
             return chain.doFilter(request, response) // create user request
@@ -33,13 +33,13 @@ class UserIdValidator(
         } catch (e: IllegalArgumentException) {
             val error = ApiError.InvalidUserId("null")
             val errorDto = ApiErrorDto(error.message)
-            (response as ResponseFacade).status = error.code.value()
+            (response as HttpServletResponse).status = error.code.value()
             Json.encodeToStream(errorDto, response.outputStream)
             return
         } catch (e: IllegalStateException) {
             val error = ApiError.UserNotFound(userId)
             val errorDto = ApiErrorDto(error.message)
-            (response as ResponseFacade).status = error.code.value()
+            (response as HttpServletResponse).status = error.code.value()
             Json.encodeToStream(errorDto, response.outputStream)
             return
         }
