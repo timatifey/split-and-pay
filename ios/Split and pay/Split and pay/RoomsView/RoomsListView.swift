@@ -11,7 +11,7 @@ import SwiftUI
 struct RoomsListView: View {
 	@EnvironmentObject var parentViewModel: MainViewModel
 	@StateObject var viewModel = RoomsViewModel(roomService: RoomsService())
-
+	@State var isCreatingRoom: Bool = false
 
 	var body: some View {
 		ZStack {
@@ -19,8 +19,15 @@ struct RoomsListView: View {
 				.ignoresSafeArea()
 			VStack {
 				HStack {
+					Button {
+						parentViewModel.clearUser()
+					} label: {
+						Text("Clear")
+					}
+
 					Spacer()
 					Button(action: {
+						isCreatingRoom = true
 					}, label: {
 						Text("+")
 							.font(Font.system(size: 26, weight: .regular))
@@ -31,21 +38,61 @@ struct RoomsListView: View {
 					.frame(width: 80, height: 36)
 					.background(Color(red: 0.27, green: 0.35, blue: 0.96))
 					.clipShape(RoundedRectangle(cornerRadius: 75/2))
+					.sheet(isPresented: $isCreatingRoom, onDismiss: {
+						isCreatingRoom = false
+					}, content: {
+						RoomCreateView()
+							.environmentObject(viewModel)
+							.presentationDetents([.medium])
+					})
 				}
 				.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
 
 				ScrollView {
-					LazyVStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
-						ForEach(viewModel.rooms) { room in
-							RoomRow(room: room)
+					switch viewModel.state {
+					case .loading:
+						ProgressView()
+							.controlSize(.large)
+							.onAppear() {
+								isCreatingRoom = false
+							}
+					case .empty:
+						VStack {
+							Image(systemName: "tray.fill")
+								.foregroundStyle(Color(red: 0.27, green: 0.35, blue: 0.96))
+								.font(.system(size: 72))
+								.frame(height: UIScreen.main.bounds.height / 4, alignment: .bottom)
+								.padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
+							Text("Пока что тут пусто")
+								.font(Font.system(size: 28, weight: .bold, design: .rounded))
+								.multilineTextAlignment(.center)
+							Text("нажмите на ")
+								.font(Font.system(size: 28, weight: .bold, design: .rounded))
+								.multilineTextAlignment(.center)
+							Text("+")
+								.font(Font.system(size: 40, weight: .bold, design: .rounded))
+								.multilineTextAlignment(.center)
+								.foregroundStyle(Color(red: 0.27, green: 0.35, blue: 0.96))
+							Text("чтобы разделить счет")
+								.font(Font.system(size: 28, weight: .bold, design: .rounded))
+								.multilineTextAlignment(.center)
 						}
-					})
+					case .content(let rooms):
+						LazyVStack(alignment: .center, spacing: nil, content: {
+							ForEach(rooms) { room in
+								RoomRow(room: room)
+							}
+						})
+					}
 				}
 				.padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 20))
 				.refreshable {
-
+					viewModel.loadRooms()
 				}
 			}
+		}
+		.onAppear() {
+			viewModel.loadRooms()
 		}
 	}
 }

@@ -53,6 +53,8 @@ protocol UserServiceProtocol {
 
 	func createUser(name: String) -> AnyPublisher<UserDTO, Error>
 
+	func saveUser(id: String) 
+
 	func clearUser()
 }
 
@@ -68,6 +70,10 @@ class UserService: UserServiceProtocol {
 
 	func createUser(name: String) -> AnyPublisher<UserDTO, Error> {
 		return apiClient.request(.createUser(name: name))
+	}
+
+	func saveUser(id: String) {
+		keychainProvider.updateAuthToken(with: id)
 	}
 
 	func clearUser() {

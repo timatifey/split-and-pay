@@ -48,9 +48,9 @@ struct RoomRow: View {
 
 	private func parseDate(originDate: String) -> String {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
 		if let date = dateFormatter.date(from: originDate) {
-			dateFormatter.dateFormat = "dd/MM/YY 'в' HH:mm"
+			dateFormatter.dateFormat = "dd/MM/YY в HH:mm"
 			let text = dateFormatter.string(from: date)
 			return text
 		} else {

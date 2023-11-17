@@ -24,6 +24,7 @@ class MainViewModel: ObservableObject {
 			.sink { error in
 				// Todo error handling
 			} receiveValue: { [weak self] user in
+				self?.userService.saveUser(id: user.id)
 				self?.user = user
 			}
 			.store(in: &cancellables)

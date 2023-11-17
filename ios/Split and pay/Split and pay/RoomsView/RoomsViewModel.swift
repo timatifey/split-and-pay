@@ -10,10 +10,15 @@ import Combine
 import SwiftUI
 
 class RoomsViewModel: ObservableObject {
+	enum screenStates {
+		case loading
+		case empty
+		case content(rooms: [RoomDTO])
+	}
+
 	private var cancellables = Set<AnyCancellable>()
 	let roomService: RoomServiceProtocol
-	@State var isLoading: Bool = true
-	@Published var rooms: [RoomDTO] = []
+	@Published var state: screenStates = .loading
 
 	init(roomService: RoomServiceProtocol) {
 		self.roomService = roomService
@@ -25,20 +30,18 @@ class RoomsViewModel: ObservableObject {
 			.sink { error in
 				// Todo error handling
 			} receiveValue: { [weak self] _ in
-				self?.getRooms()
+				self?.loadRooms()
 			}
 			.store(in: &cancellables)
 	}
 
-	func getRooms() {
-		isLoading = true
+	func loadRooms() {
+		state = .loading
 		roomService.getRooms()
 			.receive(on: RunLoop.main)
-			.sink { [weak self] _ in
-				self?.isLoading = false
+			.sink { _ in
 			} receiveValue: { [weak self] new_rooms in
-				self?.isLoading = false
-				self?.rooms = new_rooms
+				self?.state = .content(rooms: new_rooms)
 			}
 			.store(in: &cancellables)
 	}

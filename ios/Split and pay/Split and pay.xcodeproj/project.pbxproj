@@ -24,6 +24,7 @@
 		A6E8F3432B063B3200AFAF2E /* APIURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3422B063B3200AFAF2E /* APIURL.swift */; };
 		A6E8F3452B063FF500AFAF2E /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3442B063FF500AFAF2E /* RoomsViewModel.swift */; };
 		A6E8F3472B06569600AFAF2E /* RoomRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3462B06569600AFAF2E /* RoomRow.swift */; };
+		A6E8F34A2B06D30E00AFAF2E /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3492B06D30E00AFAF2E /* RoomCreateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		A6E8F3442B063FF500AFAF2E /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
 		A6E8F3462B06569600AFAF2E /* RoomRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRow.swift; sourceTree = "<group>"; };
 		A6E8F3482B066A1F00AFAF2E /* Split-and-pay-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Split-and-pay-Info.plist"; sourceTree = SOURCE_ROOT; };
+		A6E8F3492B06D30E00AFAF2E /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				A6E8F30E2B04263400AFAF2E /* RoomsListView.swift */,
+				A6E8F3492B06D30E00AFAF2E /* RoomCreateView.swift */,
 				A6E8F3462B06569600AFAF2E /* RoomRow.swift */,
 				A6E8F3442B063FF500AFAF2E /* RoomsViewModel.swift */,
 			);
@@ -233,6 +236,7 @@
 				A6E8F2FF2B03C32300AFAF2E /* IntroduceView.swift in Sources */,
 				A6E8F3032B0417B400AFAF2E /* MainViewModel.swift in Sources */,
 				A6E8F3052B04186400AFAF2E /* Network.swift in Sources */,
+				A6E8F34A2B06D30E00AFAF2E /* RoomCreateView.swift in Sources */,
 				A6AB93BE2B03BB180075F5C9 /* ContentView.swift in Sources */,
 				A6E8F3012B0415AD00AFAF2E /* PressEffectButtonStyle.swift in Sources */,
 				A6AB93BC2B03BB180075F5C9 /* Split_and_payApp.swift in Sources */,

@@ -31,9 +31,9 @@ enum RoomEndpoint: APIEndpoint {
 	var path: String {
 		switch self {
 		case .createRoom:
-			return "/rooms"
+			return "/rooms/"
 		case .getRooms:
-			return "/rooms"
+			return "/rooms/"
 		case .getRoom(let id):
 			return "/rooms/\(id)"
 		}
@@ -53,7 +53,7 @@ enum RoomEndpoint: APIEndpoint {
 	var headers: [String: String]? {
 		switch self {
 		default:
-			return [:]
+			return ["Content-Type": "application/json"]
 		}
 	}
 
@@ -62,9 +62,9 @@ enum RoomEndpoint: APIEndpoint {
 		case .createRoom(let name):
 			return ["name": name]
 		case .getRooms:
-			return [:]
+			return nil
 		case .getRoom:
-			return [:]
+			return nil
 		}
 	}
 }
