@@ -37,3 +37,14 @@ docker-compose -f docker-compose.yml up -d
 ### Api
 
 You can see all api methods on [this wiki](https://github.com/timatifey/split-and-pay/wiki/endpoints) page
+
+## iOS
+
+### Installation
+1. Clone repository
+2. Check our XCode version, minimum is 15.0 
+3. In file `APIURL.swift` set real server address
+```swift
+static let apiURL = "http://{place here server address}/api"
+```
+4. Run app via XCode for Device or Simulator, minimum iOS version is 16.2
