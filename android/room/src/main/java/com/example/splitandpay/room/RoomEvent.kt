@@ -8,4 +8,5 @@ internal sealed interface RoomEvent {
         val receiptItem: ReceiptItem,
     ) : RoomEvent
     object CreateReceiptItem: RoomEvent
+    data class OnQrCodeScan(val data: String) : RoomEvent
 }
