@@ -20,6 +20,14 @@
 		A6E8F30D2B0425AE00AFAF2E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F30C2B0425AE00AFAF2E /* MainView.swift */; };
 		A6E8F30F2B04263400AFAF2E /* RoomsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F30E2B04263400AFAF2E /* RoomsListView.swift */; };
 		A6E8F3112B04269F00AFAF2E /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3102B04269F00AFAF2E /* ViewExtensions.swift */; };
+		A6E8F3412B06398700AFAF2E /* RoomsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3402B06398700AFAF2E /* RoomsService.swift */; };
+		A6E8F3432B063B3200AFAF2E /* APIURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3422B063B3200AFAF2E /* APIURL.swift */; };
+		A6E8F3452B063FF500AFAF2E /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3442B063FF500AFAF2E /* RoomsViewModel.swift */; };
+		A6E8F3472B06569600AFAF2E /* RoomRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3462B06569600AFAF2E /* RoomRow.swift */; };
+		A6E8F34A2B06D30E00AFAF2E /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3492B06D30E00AFAF2E /* RoomCreateView.swift */; };
+		A6E8F34D2B0702A300AFAF2E /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F34C2B0702A300AFAF2E /* RoomView.swift */; };
+		A6E8F34F2B07034700AFAF2E /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F34E2B07034700AFAF2E /* ItemView.swift */; };
+		A6E8F3512B07095600AFAF2E /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E8F3502B07095600AFAF2E /* RoomViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +45,15 @@
 		A6E8F30C2B0425AE00AFAF2E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		A6E8F30E2B04263400AFAF2E /* RoomsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsListView.swift; sourceTree = "<group>"; };
 		A6E8F3102B04269F00AFAF2E /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		A6E8F3402B06398700AFAF2E /* RoomsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsService.swift; sourceTree = "<group>"; };
+		A6E8F3422B063B3200AFAF2E /* APIURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURL.swift; sourceTree = "<group>"; };
+		A6E8F3442B063FF500AFAF2E /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
+		A6E8F3462B06569600AFAF2E /* RoomRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRow.swift; sourceTree = "<group>"; };
+		A6E8F3482B066A1F00AFAF2E /* Split-and-pay-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Split-and-pay-Info.plist"; sourceTree = SOURCE_ROOT; };
+		A6E8F3492B06D30E00AFAF2E /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
+		A6E8F34C2B0702A300AFAF2E /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
+		A6E8F34E2B07034700AFAF2E /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
+		A6E8F3502B07095600AFAF2E /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,17 +86,15 @@
 		A6AB93BA2B03BB180075F5C9 /* Split and pay */ = {
 			isa = PBXGroup;
 			children = (
+				A6E8F3482B066A1F00AFAF2E /* Split-and-pay-Info.plist */,
 				A6AB93BB2B03BB180075F5C9 /* Split_and_payApp.swift */,
+				A6E8F33B2B06388100AFAF2E /* MainView */,
+				A6E8F33F2B0638FA00AFAF2E /* RoomsView */,
+				A6E8F34B2B07029400AFAF2E /* RoomView */,
+				A6E8F33E2B0638E500AFAF2E /* IntroduceView */,
+				A6E8F33C2B06389600AFAF2E /* Services */,
+				A6E8F33D2B0638C400AFAF2E /* Tools */,
 				A6AB93BD2B03BB180075F5C9 /* ContentView.swift */,
-				A6E8F2FE2B03C32300AFAF2E /* IntroduceView.swift */,
-				A6E8F3102B04269F00AFAF2E /* ViewExtensions.swift */,
-				A6E8F3022B0417B400AFAF2E /* MainViewModel.swift */,
-				A6E8F30E2B04263400AFAF2E /* RoomsListView.swift */,
-				A6E8F30C2B0425AE00AFAF2E /* MainView.swift */,
-				A6E8F30A2B04237A00AFAF2E /* KeychainProvider.swift */,
-				A6E8F3062B04188600AFAF2E /* UserService.swift */,
-				A6E8F3042B04186400AFAF2E /* Network.swift */,
-				A6E8F3002B0415AD00AFAF2E /* PressEffectButtonStyle.swift */,
 				A6AB93BF2B03BB1F0075F5C9 /* Assets.xcassets */,
 				A6AB93C12B03BB1F0075F5C9 /* Preview Content */,
 			);
@@ -92,6 +107,65 @@
 				A6AB93C22B03BB1F0075F5C9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A6E8F33B2B06388100AFAF2E /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				A6E8F30C2B0425AE00AFAF2E /* MainView.swift */,
+				A6E8F3022B0417B400AFAF2E /* MainViewModel.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		A6E8F33C2B06389600AFAF2E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A6E8F3062B04188600AFAF2E /* UserService.swift */,
+				A6E8F3402B06398700AFAF2E /* RoomsService.swift */,
+				A6E8F3422B063B3200AFAF2E /* APIURL.swift */,
+				A6E8F30A2B04237A00AFAF2E /* KeychainProvider.swift */,
+				A6E8F3042B04186400AFAF2E /* Network.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A6E8F33D2B0638C400AFAF2E /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				A6E8F3002B0415AD00AFAF2E /* PressEffectButtonStyle.swift */,
+				A6E8F3102B04269F00AFAF2E /* ViewExtensions.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		A6E8F33E2B0638E500AFAF2E /* IntroduceView */ = {
+			isa = PBXGroup;
+			children = (
+				A6E8F2FE2B03C32300AFAF2E /* IntroduceView.swift */,
+			);
+			path = IntroduceView;
+			sourceTree = "<group>";
+		};
+		A6E8F33F2B0638FA00AFAF2E /* RoomsView */ = {
+			isa = PBXGroup;
+			children = (
+				A6E8F30E2B04263400AFAF2E /* RoomsListView.swift */,
+				A6E8F3492B06D30E00AFAF2E /* RoomCreateView.swift */,
+				A6E8F3462B06569600AFAF2E /* RoomRow.swift */,
+				A6E8F3442B063FF500AFAF2E /* RoomsViewModel.swift */,
+			);
+			path = RoomsView;
+			sourceTree = "<group>";
+		};
+		A6E8F34B2B07029400AFAF2E /* RoomView */ = {
+			isa = PBXGroup;
+			children = (
+				A6E8F34C2B0702A300AFAF2E /* RoomView.swift */,
+				A6E8F3502B07095600AFAF2E /* RoomViewModel.swift */,
+				A6E8F34E2B07034700AFAF2E /* ItemView.swift */,
+			);
+			path = RoomView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,15 +244,23 @@
 			files = (
 				A6E8F3112B04269F00AFAF2E /* ViewExtensions.swift in Sources */,
 				A6E8F30B2B04237A00AFAF2E /* KeychainProvider.swift in Sources */,
+				A6E8F34D2B0702A300AFAF2E /* RoomView.swift in Sources */,
+				A6E8F3432B063B3200AFAF2E /* APIURL.swift in Sources */,
+				A6E8F3412B06398700AFAF2E /* RoomsService.swift in Sources */,
 				A6E8F30D2B0425AE00AFAF2E /* MainView.swift in Sources */,
+				A6E8F3452B063FF500AFAF2E /* RoomsViewModel.swift in Sources */,
 				A6E8F3072B04188600AFAF2E /* UserService.swift in Sources */,
 				A6E8F30F2B04263400AFAF2E /* RoomsListView.swift in Sources */,
 				A6E8F2FF2B03C32300AFAF2E /* IntroduceView.swift in Sources */,
 				A6E8F3032B0417B400AFAF2E /* MainViewModel.swift in Sources */,
 				A6E8F3052B04186400AFAF2E /* Network.swift in Sources */,
+				A6E8F34A2B06D30E00AFAF2E /* RoomCreateView.swift in Sources */,
+				A6E8F34F2B07034700AFAF2E /* ItemView.swift in Sources */,
 				A6AB93BE2B03BB180075F5C9 /* ContentView.swift in Sources */,
 				A6E8F3012B0415AD00AFAF2E /* PressEffectButtonStyle.swift in Sources */,
 				A6AB93BC2B03BB180075F5C9 /* Split_and_payApp.swift in Sources */,
+				A6E8F3472B06569600AFAF2E /* RoomRow.swift in Sources */,
+				A6E8F3512B07095600AFAF2E /* RoomViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,10 +392,12 @@
 				DEVELOPMENT_TEAM = 9N36M22CA6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Split-and-pay-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -338,10 +422,12 @@
 				DEVELOPMENT_TEAM = 9N36M22CA6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Split-and-pay-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

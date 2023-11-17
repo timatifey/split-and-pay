@@ -35,22 +35,34 @@ protocol APIClient {
 }
 
 class URLSessionAPIClient<EndpointType: APIEndpoint>: APIClient {
+
+	private let keychainProvider = KeychainProvider()
+
 	func request<T: Decodable>(_ endpoint: EndpointType) -> AnyPublisher<T, Error> {
 		let url = endpoint.baseURL.appendingPathComponent(endpoint.path)
 		var request = URLRequest(url: url)
 		request.httpMethod = endpoint.method.rawValue
 
 		endpoint.headers?.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
-		// set up any other request parameters here
+
+		if let id = keychainProvider.obtainAuthToken() {
+			request.addValue(id, forHTTPHeaderField: "userId")
+		}
+
+		if let parameters = endpoint.parameters {
+			let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+			request.httpBody = jsonData
+		}
 
 		return URLSession.shared.dataTaskPublisher(for: request)
 			.subscribe(on: DispatchQueue.global(qos: .background))
 			.tryMap { data, response -> Data in
-
+				print(response)
 				guard let httpResponse = response as? HTTPURLResponse,
 					  (200...299).contains(httpResponse.statusCode) else {
 					throw APIError.invalidResponse
 				}
+				print(String(data: data, encoding: .utf8))
 				return data
 			}
 			.decode(type: T.self, decoder: JSONDecoder())
