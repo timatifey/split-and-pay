@@ -9,7 +9,7 @@ export const HomeScreen = () => {
     let navigate = useNavigate()
 
     const [roomNumber, setRoomNumber] = useState("")
-    const [invalidRoomNumber, setInvalidRoomNumber] = useState(false)
+    const [, setInvalidRoomNumber] = useState(false)
     const [roomName, setRoomName] = useState("")
     const [invalidName, setInvalidName] = useState(false)
 
@@ -18,7 +18,6 @@ export const HomeScreen = () => {
         if (localStorage.getItem('userId') == null) {
             navigate('/')
         } else {
-            localStorage.setItem('userId', localStorage.getItem('userId')!)
             roomService.getRooms().then(r => {
                 setRooms(r.data)
             }, (error) => {

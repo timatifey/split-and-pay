@@ -5,7 +5,7 @@ import CreateRoomRequest from "../model/CreateRoomRequest";
 
 class RoomService {
     getRooms(): Promise<AxiosResponse<Array<RoomDto>>> {
-        return instance.get("/api/rooms/", {headers: {"userId": localStorage.getItem('userId')}})
+        return instance.get("/api/rooms/")
     }
 
     createRoom(createRoomRequest: CreateRoomRequest): Promise<AxiosResponse<RoomDto>> {
